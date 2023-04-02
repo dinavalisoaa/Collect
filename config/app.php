@@ -232,7 +232,7 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-        'Matiere' => App\Models\Matiere::class,
+        'Util' => App\Models\Util::class,
         'Produit' => App\Models\Produit::class,
         'PDF' => Barryvdh\DomPDF\Facade::class
 

@@ -21,4 +21,3 @@ Route::get('/', function () {
         ]
     );
 });
-Route::get('users/home', [UsersController::class, 'test']);
