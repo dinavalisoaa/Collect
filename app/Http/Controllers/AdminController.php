@@ -3,7 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Admin;
+use App\Models\Collecteur;
+use Collator;
+use Exception;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpKernel\Event\RequestEvent;
 
 class AdminController extends Controller
 {
@@ -15,6 +19,20 @@ class AdminController extends Controller
     public function index()
     {
         //
+    }
+
+    public function home()
+    {
+    }
+
+    public function action_login(Request $req)
+    {
+        $id = Admin::login(request('login'), request('mdp'));
+        if ($id == -1) {
+            return redirect('/');
+        }
+        // $req->put->session('sessionid', $id);
+        return view('collecteur.list');
     }
 
     /**

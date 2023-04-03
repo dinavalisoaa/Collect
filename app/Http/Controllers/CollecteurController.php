@@ -16,7 +16,40 @@ class CollecteurController extends Controller
     {
         //
     }
+    public function add()
+    {
+        return view('collecteur.add');
+    }
+    public function action_add(Request $request)
+    {
+        try {
 
+            $file = $request->file('photo');
+            $photo = $file->getClientOriginalName();
+            $destinationPath = 'uploads';
+            $file->move($destinationPath, $file->getClientOriginalName());
+
+            $collecteur = new Collecteur();
+            $collecteur->nom = request('nom');
+            $collecteur->photo = $destinationPath . "/" . $photo;
+
+            $collecteur->contact = request('contact');
+            $collecteur->mdp = request('nom');
+            $collecteur->login = request('login');
+            $collecteur->save();
+        } catch (\Exception $th) {
+            throw $th;
+        }
+        // return
+        return redirect('collecteur/list');
+    }
+    public function list()
+    {
+        $all = Collecteur::all();
+        return view('collecteur.list', [
+            'list' => $all
+        ]);
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -26,6 +59,8 @@ class CollecteurController extends Controller
     {
         //
     }
+
+
 
     /**
      * Store a newly created resource in storage.

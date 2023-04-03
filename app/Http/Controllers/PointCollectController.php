@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\PointCollect;
+use App\Models\Region;
 use Illuminate\Http\Request;
 
 class PointCollectController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      *
@@ -17,6 +19,35 @@ class PointCollectController extends Controller
         //
     }
 
+    public function add()
+    {
+        $produit = Region::all();
+        return view('pointcollect.add', [
+            'region' => $produit
+        ]);
+    }
+    public function action_add(Request $request)
+    {
+        try {
+            $pointcollect = new PointCollect();
+            $pointcollect->nom = request('nom');
+            $pointcollect->longitude = request('longitude');
+            $pointcollect->latitude = request('latitude');
+            $pointcollect->regionid = request('region');
+            $pointcollect->save();
+        } catch (\Exception $th) {
+            throw $th;
+        }
+        // return
+        return redirect('pointcollect/list');
+    }
+    public function list()
+    {
+        $all = PointCollect::all();
+        return view('pointcollect.list', [
+            'list' => $all
+        ]);
+    }
     /**
      * Show the form for creating a new resource.
      *

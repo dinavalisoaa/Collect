@@ -10,4 +10,8 @@ class Engard extends Model
     use HasFactory;
     protected $table = 'engard';
     public $timestamps = false;
+    public function getRegion()
+    {
+        return Region::find($this->regionid);
+    }
 }

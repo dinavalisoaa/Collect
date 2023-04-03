@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Engard;
+use App\Models\Region;
 use Illuminate\Http\Request;
 
 class EngardController extends Controller
@@ -12,6 +13,35 @@ class EngardController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function add()
+    {
+        $produit = Region::all();
+        return view('engard.add', [
+            'region' => $produit
+        ]);
+    }
+    public function action_add(Request $request)
+    {
+        try {
+            $engard = new Engard();
+            $engard->nom = request('nom');
+            $engard->longitude = request('longitude');
+            $engard->latitude = request('latitude');
+            $engard->regionid = request('region');
+            $engard->save();
+        } catch (\Exception $th) {
+            throw $th;
+        }
+        // return
+        return redirect('engard/list');
+    }
+    public function list()
+    {
+        $all = Engard::all();
+        return view('engard.list', [
+            'list' => $all
+        ]);
+    }
     public function index()
     {
         //

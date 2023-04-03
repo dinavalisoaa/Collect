@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\PlanningCollect;
+use App\Models\Produit;
 use Illuminate\Http\Request;
 
 class PlanningCollectController extends Controller
@@ -12,6 +13,35 @@ class PlanningCollectController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function add()
+    {
+        $produit = Produit::all();
+        return view('planningcollect.add', [
+            'produit' => $produit
+        ]);
+    }
+    public function action_add(Request $request)
+    {
+        try {
+            $planningcollect = new PlanningCollect();
+            $planningcollect->produitid = request('produit');
+            $planningcollect->tonnage = request('tonnage');
+            $planningcollect->datedelai = request('datedelai');
+            $planningcollect->budget = request('budget');
+            $planningcollect->save();
+        } catch (\Exception $th) {
+            throw $th;
+        }
+        // return
+        return redirect('planningcollect/list');
+    }
+    public function list()
+    {
+        $all = PlanningCollect::all();
+        return view('planningcollect.list', [
+            'list' => $all
+        ]);
+    }
     public function index()
     {
         //
