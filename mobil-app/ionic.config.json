@@ -1,0 +1,7 @@
+{
+  "name": "SMMA",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react"
+}
