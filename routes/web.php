@@ -15,10 +15,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view(
-        'users.login',
+        'admin.home',
         [
             'id' => '1'
         ]
     );
 });
-Route::get('users/home', [UsersController::class, 'test']);
+// Route::get('users/home', [UsersController::class, 'test']);
