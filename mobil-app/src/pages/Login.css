@@ -1,0 +1,19 @@
+.error {
+    text-align: center;
+    margin: auto;
+    width: 80%;
+    padding: 15px;
+    border-radius: 10px;
+    background-color: brown;
+    animation: fade 1s forwards ;
+}
+
+@keyframes fade {
+    0%{
+        transform: scale(0%);
+    }
+
+    100%{
+        transform: scale(100%);
+    }
+}
