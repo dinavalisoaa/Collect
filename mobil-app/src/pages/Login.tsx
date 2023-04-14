@@ -1,6 +1,6 @@
 import { IonButton, IonContent, IonInput, IonItem, IonLabel, IonPage, IonText, IonToast, useIonToast } from '@ionic/react';
-import { SQLite } from 'cordova-sqlite-storage';
 import { useState } from 'react';
+import { User } from '../model/User';
 import './Login.css';
 
 const Login: React.FC = () => {
@@ -21,11 +21,12 @@ const Login: React.FC = () => {
 	const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 
-		if (email === 'example@example.com' && password === 'password') {
-			// Login successful
+		let user = new User(email, password);
+
+		if(!user.tryLogin()){
+			presentToast("bottom");
 		} else {
-			// Login failed
-			presentToast('bottom')
+			presentToast("top");
 		}
 	}
 
