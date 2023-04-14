@@ -1,5 +1,5 @@
-import { IonButton, IonContent, IonInput, IonItem, IonLabel, IonPage, IonText, IonToast, useIonToast } from '@ionic/react';
-import { useState } from 'react';
+import { IonButton, IonContent, IonInput, IonItem, IonLabel, IonPage, NavContext, useIonToast } from '@ionic/react';
+import { useCallback, useContext, useState } from 'react';
 import { User } from '../model/User';
 import './Login.css';
 
@@ -9,6 +9,11 @@ const Login: React.FC = () => {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 	const [present] = useIonToast();
+	const {navigate} = useContext(NavContext);
+
+	const redirect = useCallback(
+		() => navigate("/home", 'root'),[navigate]
+	)
 
 	const presentToast = (position: 'top' | 'middle' | 'bottom') => {
 		present({
@@ -26,7 +31,7 @@ const Login: React.FC = () => {
 		if(!user.tryLogin()){
 			presentToast("bottom");
 		} else {
-			presentToast("top");
+			redirect();
 		}
 	}
 
