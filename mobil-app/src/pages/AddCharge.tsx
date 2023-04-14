@@ -1,5 +1,6 @@
 import { IonButton, IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from "@ionic/react"
 import { useState } from "react"
+import SessionManagement from "../components/SessionManage";
 import { Charge } from "../model/Charge";
 
 export default function AddCharge() {
@@ -25,6 +26,7 @@ export default function AddCharge() {
                 </IonToolbar>
             </IonHeader>
             <IonContent fullscreen>
+                <SessionManagement></SessionManagement>
                 <form onSubmit={addCharge}>
                     <div>
                         <label>Collect</label>

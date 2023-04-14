@@ -1,6 +1,7 @@
 import { IonButton, IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from "@ionic/react"
 import { useState } from "react"
 import { Link } from "react-router-dom";
+import SessionManagement from "../components/SessionManage";
 import { Collection } from "../model/Collection";
 
 export default function AddCollect() {
@@ -33,6 +34,7 @@ export default function AddCollect() {
                 </IonToolbar>
             </IonHeader>
             <IonContent fullscreen>
+                <SessionManagement></SessionManagement>
                 <form onSubmit={addCollect}>
                     <div>
                         <label>Produit</label>
