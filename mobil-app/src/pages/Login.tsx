@@ -12,7 +12,7 @@ const Login: React.FC = () => {
 	const {navigate} = useContext(NavContext);
 
 	const redirect = useCallback(
-		() => navigate("/home", 'root'),[navigate]
+		() => navigate("/addCollect", 'root'),[navigate]
 	)
 
 	const presentToast = (position: 'top' | 'middle' | 'bottom') => {

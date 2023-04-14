@@ -13,7 +13,13 @@ export class User {
      */
     public tryLogin() {
         // selection dans la base
-        if(this.login === "admin@gmail.com" && this.password === "admin"){
+        let user = {
+            id : "1",
+            login : "admin@gmail.com",
+            password : "admin"
+        }
+        if(this.login === user.login && this.password === user.password){
+            localStorage.setItem("adminId",user.id);
             return true;
         }
         return false;
