@@ -9,7 +9,6 @@ export default function AddCharge() {
 
     function addCharge( e: React.FormEvent<HTMLFormElement> ) {
         e.preventDefault();
-
         let obj = {
             collect : collect,
             dateCharge : dateCharge,

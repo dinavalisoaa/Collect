@@ -15,11 +15,12 @@ export class User {
         // selection dans la base
         let user = {
             id : "1",
+            nom : "Aina",
             login : "admin@gmail.com",
             password : "admin"
         }
         if(this.login === user.login && this.password === user.password){
-            localStorage.setItem("adminId",user.id);
+            localStorage.setItem("admin",JSON.stringify({id : user.id, nom : user.nom}));
             return true;
         }
         return false;
