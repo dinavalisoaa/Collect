@@ -23,6 +23,7 @@ import '@ionic/react/css/display.css';
 import './theme/variables.css';
 import Login from './pages/Login';
 import AddCollect from './pages/AddCollect';
+import AddCharge from './pages/AddCharge';
 
 setupIonicReact();
 
@@ -33,8 +34,11 @@ const App: React.FC = () => (
         <Route exact path="/home">
           <Home />
         </Route>
-        <Route exact path="/addCollect">
+        <Route exact path="/add-collect">
           <AddCollect />
+        </Route>
+        <Route exact path="/add-charge">
+          <AddCharge />
         </Route>
         <Route exact path="/login">
           <Login />

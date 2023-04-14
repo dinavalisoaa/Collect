@@ -1,5 +1,6 @@
-import { IonButton, IonContent, IonHeader, IonInput, IonItem, IonLabel, IonPage, IonTitle, IonToolbar } from "@ionic/react"
+import { IonButton, IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from "@ionic/react"
 import { useState } from "react"
+import { Link } from "react-router-dom";
 import { Collection } from "../model/Collection";
 
 export default function AddCollect() {
@@ -59,6 +60,7 @@ export default function AddCollect() {
                     </div>
                     <IonButton type="submit" expand="block">Login</IonButton>
                 </form>
+                <Link to="/add-charge"> Ajouter une charge </Link>
             </IonContent>
         </IonPage>
     )
