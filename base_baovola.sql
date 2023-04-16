@@ -1,6 +1,6 @@
 CREATE TABLE Admin (id SERIAL NOT NULL, nom int4, login int4, mdp int4, PRIMARY KEY (id));
 CREATE TABLE Charge (id SERIAL NOT NULL, montant float8, "date" date, TypeChargeid int4 NOT NULL, Collectid int4 NOT NULL, PRIMARY KEY (id));
-CREATE TABLE Collect (id SERIAL NOT NULL, quantite int4, "date" date, prixUnitaire float8, Produitid int4 NOT NULL, PointCollectid int4 NOT NULL, Collecteurid int4 NOT NULL, PRIMARY KEY (id));
+CREATE TABLE Collect (id SERIAL NOT NULL, quantite int4, "date" date, prixUnitaire float8, Pro9duitid int4 NOT NULL, PointCollectid int4 NOT NULL, Collecteurid int4 NOT NULL, PRIMARY KEY (id));
 CREATE TABLE Collecteur (id SERIAL NOT NULL, nom varchar(255), mdp varchar(255), login varchar(255), contact varchar(255), PRIMARY KEY (id));
 CREATE TABLE ContratTransport (Transportid int4 NOT NULL, montant float8, etatPaiement int4, id SERIAL NOT NULL, PlanningCollecteid int4 NOT NULL, PRIMARY KEY (id));
 CREATE TABLE Engard (id SERIAL NOT NULL, nom varchar(255), latitude float8, longitude float8, Regionid int4 NOT NULL, PRIMARY KEY (id));
@@ -33,3 +33,24 @@ ALTER TABLE Charge ADD CONSTRAINT FKCharge172009 FOREIGN KEY (Collectid) REFEREN
 ALTER TABLE MouvementStock ADD CONSTRAINT FKMouvementS182631 FOREIGN KEY (Engardid) REFERENCES Engard (id);
 ALTER TABLE ContratTransport ADD CONSTRAINT FKContratTra519951 FOREIGN KEY (PlanningCollecteid) REFERENCES PlanningCollecte (id);
 ALTER TABLE MouvementTransport ADD CONSTRAINT FKMouvementT791264 FOREIGN KEY (PlanningCollecteid) REFERENCES PlanningCollecte (id);
+
+
+alter TABLE Collecteur  add column photo varchar;
+alter TABLE PlanningCollecte  add column ProduitId int;
+alter TABLE PlanningCollecte  add FOREIGN KEY (ProduitId) REFERENCES Produit(Id);
+
+ alter table pointcollect add column nom varchar;
+
+insert into admin values(1,'admin','admin',md5('admin'));
+insert into TypeProduit(nom) values('LEGUME');
+insert into TypeProduit(nom) values('FRUIT');
+insert into TypeProduit(nom) values('DIVERS');
+
+
+insert into Saison(nom,moisdebut,moisfin) values('HIVER',6,9);
+insert into Saison(nom,moisdebut,moisfin) values('PRINTEMPS',9,12);
+insert into Saison(nom,moisdebut,moisfin) values('ETE',12,3);
+insert into Saison(nom,moisdebut,moisfin) values('AUTOMNE',3,6);
+
+insert into region(nom)values('Analamanga'),('Itasy'),('Bongolava'),('Vakinakaratra'),('Haute Matsiatra'),
+('Sofia'),('Diana'),('Sava'),('Alaotra Mangoro'),('Betsiboka'),('Menabe'),('Androy'),('Ihorombe'),('Amoron i Mania'),('Vatovavy Fitovinanay'),('Melaky'),('Analajirofo'),('Antsinanana'),('Atsimo Antsinanana'),('Atsimo Andrefana'),('Anosy'),('Boeny');
