@@ -1,5 +1,5 @@
 import { Redirect, Route } from 'react-router-dom';
-import { IonApp, IonRouterOutlet, setupIonicReact } from '@ionic/react';
+import { IonApp, IonContent, IonRouterOutlet, setupIonicReact } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
 import Home from './pages/Home';
 
@@ -21,22 +21,44 @@ import '@ionic/react/css/display.css';
 
 /* Theme variables */
 import './theme/variables.css';
+import Login from './pages/Login';
+import AddCollect from './pages/AddCollect';
+import AddCharge from './pages/AddCharge';
+import SidebarMenu from './components/Menu';
 
 setupIonicReact();
 
-const App: React.FC = () => (
-  <IonApp>
-    <IonReactRouter>
-      <IonRouterOutlet>
-        <Route exact path="/home">
-          <Home />
-        </Route>
-        <Route exact path="/">
-          <Redirect to="/home" />
-        </Route>
-      </IonRouterOutlet>
-    </IonReactRouter>
-  </IonApp>
-);
+const App: React.FC = () => { 
+	const handleDeconnection = ()=>{
+		localStorage.removeItem("admin");
+	}
+
+  	return (
+		<IonApp>
+			<SidebarMenu onDeconnexion={handleDeconnection} />
+			<IonContent>
+				<IonReactRouter>
+					<IonRouterOutlet id="main-content">
+						<Route exact path="/home">
+							<Home />
+						</Route>
+						<Route exact path="/add-collect">
+							<AddCollect />
+						</Route>
+						<Route exact path="/add-charge">
+							<AddCharge />
+						</Route>
+						<Route exact path="/login">
+							<Login />
+						</Route>
+						<Route exact path="/">
+							<Redirect to="/login" />
+						</Route>
+					</IonRouterOutlet>
+				</IonReactRouter>
+			</IonContent>
+		</IonApp>
+	)
+};
 
 export default App;
