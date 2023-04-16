@@ -32,7 +32,7 @@ class AdminController extends Controller
             return redirect('/');
         }
         // $req->put->session('sessionid', $id);
-        return view('collecteur.list');
+        return redirect('collecteur/list');
     }
 
     /**
