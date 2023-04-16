@@ -38,6 +38,7 @@ const Login: React.FC = () => {
 	return (
 		<IonPage>
 			<IonContent fullscreen>
+				<h1>Bienvenue sur Collector</h1>
 				<form onSubmit={handleLogin}>
 					<IonItem>
 						<IonLabel position="floating">Email</IonLabel>
