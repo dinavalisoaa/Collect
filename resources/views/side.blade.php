@@ -27,7 +27,14 @@
     <link href="/assets/vendor/quill/quill.bubble.css" rel="stylesheet">
     <link href="/assets/vendor/remixicon/remixicon.css" rel="stylesheet">
     <link href="/assets/vendor/simple-datatables/style.css" rel="stylesheet">
+<style>
+  .btn-primary{
+    background-color:   #4FB331;  /*stroke:#263238*/
+  } .btn-primary:hover{
+    background-color:  #3E8C26/* #92E3A1;  /*stroke:#263238*/
+  }
 
+</style>
     <!-- Template Main CSS File -->
     <link href="/assets/css/style.css" rel="stylesheet">
 
@@ -38,14 +45,13 @@
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
 </head>
-
-<body>
+<body class="toggle-sidebar">
     <header id="header" class="header fixed-top d-flex align-items-center">
 
         <div class="d-flex align-items-center justify-content-between">
             <a href="index.html" class="logo d-flex align-items-center">
-                <img src="assets/img/logo.png" alt="">
-                <span class="d-none d-lg-block">NiceAdmin</span>
+                <img src="/assets/img/logo2.svg" alt="">
+                <span class="d-none d-lg-block">Y-Collect</span>
             </a>
             <i class="bi bi-list toggle-sidebar-btn"></i>
         </div><!-- End Logo -->
