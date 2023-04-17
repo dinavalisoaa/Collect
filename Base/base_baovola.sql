@@ -28,6 +28,7 @@ CREATE TABLE Collect (
     PRIMARY KEY (id)
 );
 
+
 CREATE TABLE Collecteur (
     id SERIAL NOT NULL,
     nom VARCHAR(255),
@@ -38,10 +39,10 @@ CREATE TABLE Collecteur (
 );
 
 CREATE TABLE ContratTransport (
+    id SERIAL NOT NULL,
     Transportid INT4 NOT NULL,
     montant FLOAT8,
     etatPaiement INT4,
-    id SERIAL NOT NULL,
     PlanningCollecteid INT4 NOT NULL,
     PRIMARY KEY (id)
 );
