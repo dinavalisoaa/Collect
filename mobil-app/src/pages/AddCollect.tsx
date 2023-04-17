@@ -1,4 +1,5 @@
-import { IonButton, IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from "@ionic/react"
+import { IonButton, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonContent, IonHeader, IonIcon, IonInput, IonItem, IonLabel, IonPage, IonTitle, IonToolbar } from "@ionic/react"
+import { addOutline } from "ionicons/icons";
 import { useState } from "react"
 import { Link } from "react-router-dom";
 import SessionManagement from "../components/SessionManage";
@@ -30,39 +31,48 @@ export default function AddCollect() {
         <IonPage>
             <IonHeader>
                 <IonToolbar>
-                <IonTitle>Ajouter une collect</IonTitle>
+                <IonTitle>Collect</IonTitle>
                 </IonToolbar>
             </IonHeader>
             <IonContent fullscreen>
                 <SessionManagement></SessionManagement>
-                <form onSubmit={addCollect}>
-                    <div>
-                        <label>Produit</label>
-                        <select onSelect={(e:any) => setProduit(e.target.value)}>
-                            <option value={1}>Manioc</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label>Date</label>
-                        <input type="date" value={dateCollect} onChange={(e:any) => setDate(e.target.value)} required/>
-                    </div>
-                    <div>
-                        <label>Prix Unitaire</label>
-                        <input type="number" value={pu} onChange={(e:any) => setPU(e.target.value)} required/>
-                    </div>
-                    <div>
-                        <label>Quantite</label>
-                        <input type="number" value={quantite} onChange={(e:any) => setQuantite(e.target.value)} required/>
-                    </div>
-                    <div>
-                        <label>Point de collect</label>
-                        <select onSelect={(e:any) => setPointCollect(e.target.value)}>
-                            <option value={1}>Andavamamba</option>
-                        </select>
-                    </div>
-                    <IonButton type="submit" expand="block">Login</IonButton>
-                </form>
-                <Link to="/add-charge"> Ajouter une charge </Link>
+                <IonCard>
+                    <IonCardHeader>
+                        <IonCardTitle>Ajout d'un collect</IonCardTitle>
+                    </IonCardHeader>
+                    <IonCardContent>
+                        <form onSubmit={addCollect}>
+                            <IonItem>
+                                <IonLabel>Produit</IonLabel>
+                                <select onSelect={(e:any) => setProduit(e.target.value)}>
+                                    <option value={1}>Manioc</option>
+                                </select>
+                            </IonItem>
+                            <IonItem>
+                                <IonLabel>Date</IonLabel>
+                                <IonInput type="date" value={dateCollect} onChange={(e:any) => setDate(e.target.value)} className="text-center" required/>
+                            </IonItem>
+                            <IonItem>
+                                <IonLabel position="floating">Prix Unitaire</IonLabel>
+                                <IonInput type="number" value={pu} onChange={(e:any) => setPU(e.target.value)} required/>
+                            </IonItem>
+                            <IonItem>
+                                <IonLabel position="floating">Quantite</IonLabel>
+                                <IonInput type="number" value={quantite} onChange={(e:any) => setQuantite(e.target.value)} required/>
+                            </IonItem>
+                            <IonItem>
+                                <IonLabel>Point de collect</IonLabel>
+                                <select onSelect={(e:any) => setPointCollect(e.target.value)}>
+                                    <option value={1}>Andavamamba</option>
+                                </select>
+                            </IonItem>
+                            <IonButton type="submit" expand="block">
+                                <IonIcon icon={addOutline} />Add
+                            </IonButton>
+                        </form>
+                    </IonCardContent>
+                </IonCard>
+                {/* <Link to="/add-charge"> Ajouter une charge </Link> */}
             </IonContent>
         </IonPage>
     )
