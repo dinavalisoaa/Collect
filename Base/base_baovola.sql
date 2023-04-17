@@ -118,17 +118,25 @@ CREATE TABLE Saison (
     PRIMARY KEY (id)
 );
 
-
 CREATE TABLE Transport (
     id SERIAL NOT NULL,
     nom VARCHAR(255),
     contact VARCHAR(255),
+    Transportid INT4 NOT NULL,
     PRIMARY KEY (id)
 );
 
-CREATE TABLE TypeCharge (id SERIAL NOT NULL, nom VARCHAR(255), PRIMARY KEY (id));
+CREATE TABLE TypeCharge (
+    id SERIAL NOT NULL,
+     nom VARCHAR(255),
+      PRIMARY KEY (id)
+);
 
-CREATE TABLE TypeProduit (id SERIAL NOT NULL, nom VARCHAR(255), PRIMARY KEY (id));
+CREATE TABLE TypeProduit (
+    id SERIAL NOT NULL,
+     nom VARCHAR(255),
+      PRIMARY KEY (id)
+);
 
 CREATE TABLE TypeStock (id SERIAL NOT NULL, nom VARCHAR(255), PRIMARY KEY (id));
 
