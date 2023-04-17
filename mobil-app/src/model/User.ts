@@ -7,26 +7,28 @@ export class User {
 
     constructor(login: any, password : any) {
         // Creation de la table user si existe
-        const sqlite = new SQLite();
-
-        sqlite.create({
-        name: 'mydatabase.db',
+        SQLite.create({
+        name: 'collect.db',
         location: 'default'
         }).then((db: SQLiteObject) => {
-        db.executeSql(`
-            CREATE TABLE IF NOT EXISTS users (
-            id INTEGER PRIMARY KEY,
-            name TEXT NOT NULL,
-            email TEXT UNIQUE NOT NULL
-            )
-        `, []).then(() => {
-            console.log('Table users created');
+            db.executeSql(`
+                CREATE TABLE IF NOT EXISTS users (
+                    id INTEGER PRIMARY KEY,
+                    name TEXT NOT NULL,
+                    email TEXT UNIQUE NOT NULL,
+                    motDePasse TEXT UNIQUE NOT NULL
+                )
+            `, []).then(() => {
+                console.log('Table users created');
         }).catch((error: Error) => {
+            alert(JSON.stringify(error))
             console.error('Error creating table users', error);
         });
         }).catch((error: Error) => {
-        console.error('Error creating SQLite database', error);
+            alert(JSON.stringify(error))
+            console.error('Error creating SQLite database', error);
         });
+        
         this.login = login;
         this.password = password;
     }
