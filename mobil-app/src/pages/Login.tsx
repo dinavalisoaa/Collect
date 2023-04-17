@@ -6,8 +6,8 @@ import './Login.css';
 const Login: React.FC = () => {
 
 	
-	const [email, setEmail] = useState('');
-	const [password, setPassword] = useState('');
+	const [email, setEmail] = useState('admin@gmail.com');
+	const [password, setPassword] = useState('admin');
 	const [present] = useIonToast();
 	const {navigate} = useContext(NavContext);
 

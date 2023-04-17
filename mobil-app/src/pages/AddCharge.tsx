@@ -1,4 +1,4 @@
-import { IonButton, IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from "@ionic/react"
+import { IonButton, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonContent, IonHeader, IonInput, IonItem, IonLabel, IonPage, IonTitle, IonToolbar } from "@ionic/react"
 import { useState } from "react"
 import SessionManagement from "../components/SessionManage";
 import { Charge } from "../model/Charge";
@@ -27,23 +27,30 @@ export default function AddCharge() {
             </IonHeader>
             <IonContent fullscreen>
                 <SessionManagement></SessionManagement>
-                <form onSubmit={addCharge}>
-                    <div>
-                        <label>Collect</label>
-                        <select onSelect={(e:any) => setCollect(e.target.value)}>
-                            <option value={1}>And Collect</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label>Date de charge</label>
-                        <input type="date" value={dateCharge} onChange={(e:any) => setDateCharge(e.target.value)} required/>
-                    </div>
-                    <div>
-                        <label>Montant</label>
-                        <input type="number" value={montant} onChange={(e:any) => setMontant(e.target.value)} required/>
-                    </div>
-                    <IonButton type="submit" expand="block">Login</IonButton>
-                </form>
+                <IonCard>
+                    <IonCardHeader>
+                        <IonCardTitle>Ajout d'un collect</IonCardTitle>
+                    </IonCardHeader>
+                    <IonCardContent>
+                        <form onSubmit={addCharge}>
+                            <IonItem>
+                                <IonLabel>Collect</IonLabel>
+                                <select onSelect={(e:any) => setCollect(e.target.value)}>
+                                    <option value={1}>And Collect</option>
+                                </select>
+                            </IonItem>
+                            <IonItem>
+                                <IonLabel>Date de charge</IonLabel>
+                                <IonInput type="date" value={dateCharge} onChange={(e:any) => setDateCharge(e.target.value)} required/>
+                            </IonItem>
+                            <IonItem>
+                                <IonLabel position="floating">Montant</IonLabel>
+                                <IonInput type="number" value={montant} onChange={(e:any) => setMontant(e.target.value)} required/>
+                            </IonItem>
+                            <IonButton type="submit" expand="block">Login</IonButton>
+                        </form>
+                    </IonCardContent>
+                </IonCard>
             </IonContent>
         </IonPage>
     )
