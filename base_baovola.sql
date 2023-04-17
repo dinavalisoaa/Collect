@@ -42,6 +42,10 @@ alter TABLE PlanningCollecte  add FOREIGN KEY (ProduitId) REFERENCES Produit(Id)
  alter table pointcollect add column nom varchar;
 
 insert into admin values(1,'admin','admin',md5('admin'));
+insert into Collecteur(nom,mdp,login,contact)values('Razafimahatratra Joro',md5('Joro'),'joro@gmail.com','0348729120');
+insert into Collecteur(nom,mdp,login,contact)values('Ramafandra Faliaina',md5('Faly'),'faly@gmail.com','039874617');
+insert into Collecteur(nom,mdp,login,contact)values('Ramafandra Faliaina',md5('Faly'),'faly@gmail.com','039874617');
+insert into Collecteur(nom,mdp,login,contact)values('Razafimahatratra Joro',md5('Joro'),'joro@gmail.com','0348729120');
 insert into TypeProduit(nom) values('LEGUME');
 insert into TypeProduit(nom) values('FRUIT');
 insert into TypeProduit(nom) values('DIVERS');

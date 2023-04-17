@@ -50,6 +50,13 @@ class CollecteurController extends Controller
             'list' => $all
         ]);
     }
+    public function home()
+    {
+        $all = Collecteur::all();
+        return view('collecteur.home', [
+            'list' => $all
+        ]);
+    }
     /**
      * Show the form for creating a new resource.
      *
