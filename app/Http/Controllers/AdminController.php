@@ -23,6 +23,7 @@ class AdminController extends Controller
 
     public function home()
     {
+        return view('admin/home');
     }
 
     public function action_login(Request $req)
@@ -32,7 +33,7 @@ class AdminController extends Controller
             return redirect('/');
         }
         // $req->put->session('sessionid', $id);
-        return redirect('collecteur/list');
+        return redirect('admin/home');
     }
 
     /**

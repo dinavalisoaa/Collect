@@ -29,6 +29,7 @@ Route::get('/', function () {
     );
 });
 Route::post('admin/action_login', [AdminController::class, 'action_login']);
+Route::get('admin/home', [AdminController::class, 'home']);
 
 Route::get('collecteur/list', [CollecteurController::class, 'list']);
 Route::get('collecteur/home', [CollecteurController::class, 'home']);
