@@ -8,21 +8,21 @@ export class User {
     constructor(login: any, password : any) {
         // Creation de la table user si existe
         SQLite.create({
-        name: 'collect.db',
-        location: 'default'
+            name: 'collect.db',
+            location: 'default'
         }).then((db: SQLiteObject) => {
             db.executeSql(`
-                CREATE TABLE IF NOT EXISTS users (
-                    id INTEGER PRIMARY KEY,
-                    email TEXT UNIQUE NOT NULL,
-                    motDePasse TEXT UNIQUE NOT NULL
-                )
-            `, []).then(() => {
-                console.log('Table users created');
-        }).catch((error: Error) => {
-            alert(JSON.stringify(error))
-            console.error('Error creating table users', error);
-        });
+                    CREATE TABLE IF NOT EXISTS users (
+                        id INTEGER PRIMARY KEY,
+                        email TEXT UNIQUE NOT NULL,
+                        motDePasse TEXT UNIQUE NOT NULL
+                    )
+                `, []).then(() => {
+                    console.log('Table users created');
+            }).catch((error: Error) => {
+                alert(JSON.stringify(error))
+                console.error('Error creating table users', error);
+            });
         }).catch((error: Error) => {
             alert(JSON.stringify(error))
             console.error('Error creating SQLite database', error);
