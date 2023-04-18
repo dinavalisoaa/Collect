@@ -25,6 +25,8 @@ import Login from './pages/Login';
 import AddCollect from './pages/AddCollect';
 import AddCharge from './pages/AddCharge';
 import SidebarMenu from './components/Menu';
+import { Database } from './services/Database';
+import { useEffect } from 'react';
 
 setupIonicReact();
 
@@ -32,6 +34,10 @@ const App: React.FC = () => {
 	const handleDeconnection = ()=>{
 		localStorage.removeItem("admin");
 	}
+
+	useEffect(()=>{
+		new Database().initDB();
+	},[]);
 
   	return (
 		<IonApp>
