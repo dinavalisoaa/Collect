@@ -32,8 +32,9 @@ export class Database {
             location: 'default'
         }).then((db: SQLiteObject) => {
             tableList.forEach((result)=>{
-                db.executeSql(result, []).then(() => {
-                    console.log("executed "+ result);
+                    db.executeSql(result, []).then(() => {
+                    // alert(JSON.stringify())
+                    alert("executed "+ result);
                 }).catch((error: Error) => {
                     alert(JSON.stringify(error))
                     console.error('Error creating table users', error);

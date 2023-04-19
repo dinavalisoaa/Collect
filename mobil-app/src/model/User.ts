@@ -7,27 +7,24 @@ export class User {
 
     constructor(login: any, password : any) {
         // Creation de la table user si existe
-        SQLite.create({
-            name: 'collect.db',
-            location: 'default'
-        }).then((db: SQLiteObject) => {
-            db.executeSql(`
-                    CREATE TABLE IF NOT EXISTS users (
-                        id INTEGER PRIMARY KEY,
-                        email TEXT UNIQUE NOT NULL,
-                        motDePasse TEXT UNIQUE NOT NULL
-                    )
-                `, []).then(() => {
-                    console.log('Table users created');
-            }).catch((error: Error) => {
-                alert(JSON.stringify(error))
-                console.error('Error creating table users', error);
-            });
-        }).catch((error: Error) => {
-            alert(JSON.stringify(error))
-            console.error('Error creating SQLite database', error);
-        });
-        
+        // SQLite.create({
+        //     name: 'collect.db',
+        //     location: 'default'
+        // }).then((db: SQLiteObject) => {
+        //     db.executeSql(
+        //         `
+        //             INSERT INTO users(email, motDePasse) VALUES (?,?)
+        //         `
+        //         , ['admin@gmail.com','admin']).then((resutl) => {
+        //             alert(JSON.stringify(resutl));
+        //     }).catch((error: Error) => {
+        //         alert(JSON.stringify(error))
+        //         console.error('Error creating table users', error);
+        //     });
+        // }).catch((error: Error) => {
+        //     alert(JSON.stringify(error))
+        //     console.error('Error creating SQLite database', error);
+        // });
         this.login = login;
         this.password = password;
     }
@@ -35,8 +32,16 @@ export class User {
     /**
      * tryLogin
      */
-    public tryLogin() {
+    public async tryLogin() {
         // selection dans la base
+        let db = await SQLite.create({
+            name: 'collect.db',
+            location: 'default' 
+        })
+
+        let result = await db.executeSql("SELECT id,email FROM users WHERE login=? AND password=?",[this.login, this.password]);
+
+        alert(JSON.stringify(result));
         let user = {
             id : "1",
             nom : "Aina",
