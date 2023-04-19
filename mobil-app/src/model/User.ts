@@ -39,7 +39,7 @@ export class User {
             location: 'default' 
         })
 
-        let result = await db.executeSql("SELECT id,email FROM users WHERE login=? AND password=?",[this.login, this.password]);
+        let result = await db.executeSql("SELECT id,email FROM users WHERE email=? AND motDePasse=?",[this.login, this.password]);
 
         alert(JSON.stringify(result));
         let user = {
