@@ -39,4 +39,8 @@ class Mouvement extends Model{
         if(strtotime($value) > strtotime('today')) throw new \Exception('La date ne doit pas etre apres aujourd\'hui!');
         $this->attributes['date'] = $value;
     }
+
+    public function montant(){
+        return $this->quantite * $this->prixunitaire;
+    }
 }

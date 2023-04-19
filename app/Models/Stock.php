@@ -20,4 +20,12 @@ class Stock extends Model{
     public function total(){
         return $this->quantite * $this->prixunitaire;
     }
+
+    public function formatTotal(){
+        return number_format($this->quantite * $this->prixunitaire, 2, '.', ' ');
+    }
+
+    public function formatPU(){
+        return number_format($this->prixunitaire, 2, '.', ' ');
+    }
 }

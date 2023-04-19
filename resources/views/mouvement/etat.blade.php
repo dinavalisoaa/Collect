@@ -23,8 +23,8 @@
             <tr>
                 <td>{{ $stock->dateentree }}</td>
                 <td>{{ $stock->quantite }}</td>
-                <td>{{ $stock->prixunitaire }}</td>
-                <td>{{ $stock->total() }}</td>
+                <td>{{ $stock->formatPU() }}</td>
+                <td>{{ $stock->formatTotal() }}</td>
             </tr>
         @endforeach
     </table>

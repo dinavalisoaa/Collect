@@ -22,23 +22,41 @@ class StockController extends Controller{
         ]);
     }
 
-    public function insertMouvement(){
+    public function insertEntree(){
         try {
+            $idprod = request('produit');
+            $prod = Produit::find($idprod);
             $mouv = new Mouvement();
             $mouv->prixunitaire = request('pu');
             $mouv->quantite = request('quantite');
             $mouv->date = request('date');
-            $mouv->produitid = request('produit');
+            $mouv->produitid = $idprod;
             $mouv->engardid = request('engard');
-            $mouv->save();
-            return $this->newMouvement(['success'=>'Enregistrer avec succes!']);
+            $prod->addEntree($mouv);
+            return $this->newMouvement(['success0'=>'Enregistrer avec succes!']);
         } catch (\Exception $e) {
-            return $this->newMouvement(['error'=>$e->getMessage()]);
+            return $this->newMouvement(['error0'=>$e->getMessage()]);
+        }
+    }
+
+    public function insertSortie(){
+        try {
+            $idprod = request('produit');
+            $prod = Produit::find($idprod);
+            $mouv = new Mouvement();
+            $mouv->quantite = request('quantite');
+            $mouv->date = request('date');
+            $mouv->produitid = $idprod;
+            $mouv->engardid = request('engard');
+            $prod->addSortie($mouv);
+            return $this->newMouvement(['success1'=>'Enregistrer avec succes!']);
+        } catch (\Exception $e) {
+            return $this->newMouvement(['error1'=>$e->getMessage()]);
         }
     }
 
     public function listMouvement($messages=[]){
-        $tab = Mouvement::with('produit')->orderBy('date', 'desc')->paginate(self::PERPAGE);
+        $tab = Mouvement::with('produit')->orderBy('id', 'desc')->paginate(self::PERPAGE);
         $prods = Produit::all();
         $engs = Engard::all();
         return view('mouvement.list',[
@@ -93,7 +111,7 @@ class StockController extends Controller{
         if($engard){
             $query->where('engardid', $engard);
         }
-        $tab = $query->with('produit')->orderBy('date', 'desc')->paginate(self::PERPAGE);
+        $tab = $query->with('produit')->orderBy('id', 'desc')->paginate(self::PERPAGE);
         $tab->appends(request()->query());
         $prods = Produit::all();
         $engs = Engard::all();
@@ -112,6 +130,11 @@ class StockController extends Controller{
     public function etatStock($id){
         $prod = Produit::with('stocks')->with('typestock')->with('mouvements')->find($id);
         $etat = EtatStock::find($id);
+        if(!isset($etat)){
+            $etat = new EtatStock();
+            $etat->valeurstock = 0;
+            $etat->quantitestock = 0;
+        }
         return view('mouvement.etat',[
             'produit' => $prod,
             'etat' => $etat,

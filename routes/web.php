@@ -29,7 +29,8 @@ Route::post('/updateMarge',[DataController::class,'updateMarge']);
 
 //insertion mouvement stock
 Route::get('/newMouvement',[StockController::class,'newMouvement']);
-Route::post('/insertMouvement',[StockController::class,'insertMouvement']);
+Route::post('/insertEntree',[StockController::class,'insertEntree']);
+Route::post('/insertSortie',[StockController::class,'insertSortie']);
 
 //list mouvement stock
 Route::get('/listMouvement',[StockController::class,'listMouvement']);
