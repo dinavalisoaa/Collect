@@ -13,11 +13,13 @@ ALTER TABLE ContratTransport ALTER COLUMN montant SET DEFAULT 0;
 ALTER TABLE TRANSPORT DROP COLUMN PointCollectid ;
 ALTER TABLE TRANSPORT ADD COLUMN "type" int default 0;
 ALTER TABLE TRANSPORT ADD COLUMN CAPACITE INT DEFAULT 0;
+ALTER TABLE TRANSPORT ADD COLUMN etat INT DEFAULT 0;
+ALTER TABLE TRANSPORT ADD COLUMN IMMATRICULATION VARCHAR(30);
 
 
 drop view v_transport;
 create or replace view v_transport as
-select s.id idSociete,t.id idTransport, t.nom transport, contact,s.nom societe from transport  t join societe s on t.idsociete=s.id;
+select s.id idSociete,t.id idTransport,t.etat, t.nom transport, contact,s.nom societe from transport  t join societe s on t.idsociete=s.id;
 
 drop table transport;
 CREATE TABLE Transport (

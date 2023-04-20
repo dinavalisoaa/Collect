@@ -44,4 +44,14 @@ class RestController extends Controller
             return response()->json(['error' => $e]);
         }
     }
+    public function disableTransport($id)
+    {
+        try {
+            Transport::where('id', $id)->update(['etat' => 5]);
+            return response()->json(['success' => 'Modification enregistrée']);
+        } catch (\Exception $e) {
+            echo $e->getMessage();
+            return response()->json(['error' => $e]);
+        }
+    }
 }
