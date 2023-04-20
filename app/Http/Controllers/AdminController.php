@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Admin;
 use App\Models\Collecteur;
+use App\Models\Mois;
+use App\Models\Statistique;
 use Collator;
 use Exception;
 use Illuminate\Http\Request;
@@ -23,7 +25,23 @@ class AdminController extends Controller
 
     public function home()
     {
-        return view('admin/home');
+        $mois = Mois::all();
+        $recette = Statistique::montant_recette();
+        $depense = Statistique::montant_depense();
+        $benefice = Statistique::montant_benefice();
+        $somme_recette = Statistique::somme_recette();
+        $somme_depense = Statistique::somme_depense();
+        $somme_benefice = Statistique::somme_benefice();
+        return view('admin/home', [
+            'mois' => $mois,
+            'recette' => $recette,
+            'depense' => $depense,
+            'benefice' => $benefice,
+            'somme_recette' => $somme_recette,
+            'somme_depense' => $somme_depense,
+            'somme_benefice' => $somme_benefice
+        ]);
+        // return view('admin/home');
     }
 
     public function action_login(Request $req)
@@ -52,11 +70,23 @@ class AdminController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function dash(Request $request)
     {
-        //
-    }
+        // $mois=
+        if(request('mois')!=null&&request('annee')!=null){
+        return view('admin.dash',[
+            'mois'=>request('mois'),
+            'annee'=>request('annee')
+        ]);
 
+        }
+        return view('admin.dash');
+    }
+    public function detail(Request $request)
+    {
+      
+        return redirect('planningcollect/detail?date='.request('date'));
+    }
     /**
      * Display the specified resource.
      *

@@ -18,4 +18,26 @@ class Produit extends Model
     {
         return Saison::find($this->saisonid);
     }
+
+    /**
+     * @var array $fillable
+     */
+    protected $id;
+    protected $nom;
+    protected $typeproduitid;
+    protected $dureeperemption;
+    protected $modeconservation;
+    protected $debutsaison;
+    protected $finsaison;
+
+    protected $guard = ['updated_at', 'created_at'];
+    protected $fillable = [
+        'id',
+        'nom',
+        'typeproduitid',
+        'dureeperemption',
+        'modeconservation',
+        'debutsaison',
+        'finsaison'
+    ];
 }

@@ -10,7 +10,7 @@
     <meta content="" name="keywords">
 
     <!-- Favicons -->
-    <link href="/assets/img/favicon.png" rel="icon">
+    <link href="/assets/img/2.png" rel="icon">
     <link href="/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
     <!-- Google Fonts -->
@@ -46,12 +46,11 @@
   ======================================================== -->
 </head>
 <body class="toggle-sidebar">
-    <header id="header" class="header fixed-top d-flex align-items-center">
+    <header id="header" class="header fixed-top d-flex align-items-center" >
 
         <div class="d-flex align-items-center justify-content-between">
-            <a href="index.html" class="logo d-flex align-items-center">
-                <img src="/assets/img/logo2.svg" alt="">
-                <span class="d-none d-lg-block">Y-Collect</span>
+            <a href="/admin/home" >
+            <img src="/assets/img/31.png" height="120px"/>
             </a>
             <i class="bi bi-list toggle-sidebar-btn"></i>
         </div><!-- End Logo -->

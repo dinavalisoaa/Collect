@@ -1,8 +1,16 @@
 import { Redirect, Route } from 'react-router-dom';
-import { IonApp, IonContent, IonRouterOutlet, setupIonicReact } from '@ionic/react';
+import {
+  IonApp,
+  IonIcon,
+  IonLabel,
+  IonRouterOutlet,
+  IonTabBar,
+  IonTabButton,
+  IonTabs,
+  setupIonicReact
+} from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
-import Home from './pages/Home';
-
+import { list, pencil, person, save, sync } from 'ionicons/icons';
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
 
@@ -21,44 +29,86 @@ import '@ionic/react/css/display.css';
 
 /* Theme variables */
 import './theme/variables.css';
-import Login from './pages/Login';
-import AddCollect from './pages/AddCollect';
-import AddCharge from './pages/AddCharge';
-import SidebarMenu from './components/Menu';
+import DetailVehicule from './pages/DetailVehicule';
+import InsertForm from './pages/InsertForm';
+import { SQLiteHook, useSQLite } from 'react-sqlite-hook';
+import { useState } from 'react';
+import Liste from './pages/Liste';
+import ListeRequete from './pages/ListeRequete';
+import Synchronisation from './pages/Synchronisation';
+
+interface JsonListenerInterface {
+  jsonListeners: boolean,
+  setJsonListeners: React.Dispatch<React.SetStateAction<boolean>>,
+}
+interface existingConnInterface {
+  existConn: boolean,
+  setExistConn: React.Dispatch<React.SetStateAction<boolean>>,
+}
+
+// Singleton SQLite Hook
+export let sqlite: SQLiteHook;
+// Existing Connections Store
+export let existingConn: existingConnInterface;
+// Is Json Listeners used
+export let isJsonListeners: JsonListenerInterface;
 
 setupIonicReact();
 
-const App: React.FC = () => { 
-	const handleDeconnection = ()=>{
-		localStorage.removeItem("admin");
-	}
+const App: React.FC = () => {
+  const [existConn, setExistConn] = useState(false);
+  existingConn = { existConn: existConn, setExistConn: setExistConn };
 
-  	return (
-		<IonApp>
-			<SidebarMenu onDeconnexion={handleDeconnection} />
-			<IonContent>
-				<IonReactRouter>
-					<IonRouterOutlet id="main-content">
-						<Route exact path="/home">
-							<Home />
-						</Route>
-						<Route exact path="/add-collect">
-							<AddCollect />
-						</Route>
-						<Route exact path="/add-charge">
-							<AddCharge />
-						</Route>
-						<Route exact path="/login">
-							<Login />
-						</Route>
-						<Route exact path="/">
-							<Redirect to="/login" />
-						</Route>
-					</IonRouterOutlet>
-				</IonReactRouter>
-			</IonContent>
-		</IonApp>
-	)
+  sqlite = useSQLite();
+  console.log(`$$$ in App sqlite.isAvailable  ${sqlite.isAvailable} $$$`);
+  return(
+    <IonApp>
+      <IonReactRouter>
+        <IonTabs>
+          <IonRouterOutlet>
+            <Route exact path="/vehicules/:idVehicule">
+              <DetailVehicule />
+            </Route>
+            <Route exact path="/personnes">
+              <Liste />
+            </Route>
+            <Route exact path="/requetes">
+              <ListeRequete />
+            </Route>
+            <Route exact path="/synchronisation">
+              <Synchronisation />
+            </Route>
+            <Route exact path="/InsertForm">
+              <InsertForm />
+            </Route>
+            <Route exact path="/">
+              <Redirect to="/InsertForm" />
+            </Route>
+          </IonRouterOutlet>
+
+          <IonTabBar slot="bottom">
+            <IonTabButton tab="liste" href="/personnes">
+              <IonIcon icon={person} />
+              <IonLabel>Liste</IonLabel>
+            </IonTabButton>
+            <IonTabButton tab="requete" href="/requetes">
+              <IonIcon icon={list} />
+              <IonLabel>Requete</IonLabel>
+            </IonTabButton>
+            <IonTabButton tab="synchronisation" href="/synchronisation">
+              <IonIcon icon={sync} />
+              <IonLabel>Synchronisation</IonLabel>
+            </IonTabButton>
+            <IonTabButton tab="form" href="/InsertForm">
+              <IonIcon icon={save} />
+              <IonLabel>Enregistrement</IonLabel>
+            </IonTabButton>
+          </IonTabBar>
+
+        </IonTabs>
+      </IonReactRouter>
+    </IonApp>
+  );
 };
 
 export default App;

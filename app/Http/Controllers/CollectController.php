@@ -14,13 +14,12 @@ class CollectController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-   
-    // public function add()
-    // {
-    //     return json_encode(
-    //         [
-    //             'io' => 's'
-    //         ]
-    //     );
-    // }
+  
+    public function list()
+    {
+        $all = Collect::fromQuery("select *from collect where id=".request('planning'));
+        return view('collecte.list', [
+            'list' => $all
+        ]);
+    }
 }

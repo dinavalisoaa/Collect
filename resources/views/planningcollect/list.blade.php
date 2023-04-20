@@ -13,7 +13,7 @@
 
 
     <div class="row">
-        <div class="col-lg-12">
+        <div class="col-lg-10">
 
             <div class="card">
                 <div class="card-body">
@@ -25,7 +25,6 @@
                         <thead>
                             <tr>
                                 <th scope="col">Nom du produit</th>
-                                <th scope="col">Tonnage</th>
                                 <th scope="col">Budget</th>
                                 <th scope="col">Delai</th>
                             </tr>
@@ -33,11 +32,13 @@
                         <tbody>
                             @foreach ($list as $row)
                                 <tr>
-                                    <td>{{ $row->getProduit()->nom }}</td>
-                                    <td>{{ $row->tonnage }}T</td>
-
+                                    <td>{{ $row->getPointCollecte()->nom }}</td>
                                     <td>{{ $row->budget }}Ar</td>
-                                    <td>{{ $row->datedelai }}</td>
+                                    <!--  -->
+                                    <td>
+                                <button class='btn btn-success'>
+                                {{ date('j F Y', strtotime($row->datedelai)) }}
+                                </button></td>
 
                                 </tr>
                             @endforeach

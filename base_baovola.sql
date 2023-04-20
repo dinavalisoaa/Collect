@@ -44,7 +44,7 @@ alter TABLE PlanningCollecte  add FOREIGN KEY (ProduitId) REFERENCES Produit(Id)
 insert into admin values(1,'admin','admin',md5('admin'));
 insert into Collecteur(nom,mdp,login,contact)values('Razafimahatratra Joro',md5('Joro'),'joro@gmail.com','0348729120');
 insert into Collecteur(nom,mdp,login,contact)values('Ramafandra Faliaina',md5('Faly'),'faly@gmail.com','039874617');
-insert into Collecteur(nom,mdp,login,contact)values('Ramafandra Faliaina',md5('Faly'),'faly@gmail.com','039874617');
+insert into Collecteur(nom,mdp,login,contact)values('Famantanatsoa Radolalaina',md5('Rado'),'rado@gmail.com','0930328324');
 insert into Collecteur(nom,mdp,login,contact)values('Razafimahatratra Joro',md5('Joro'),'joro@gmail.com','0348729120');
 insert into TypeProduit(nom) values('LEGUME');
 insert into TypeProduit(nom) values('FRUIT');
@@ -58,3 +58,7 @@ insert into Saison(nom,moisdebut,moisfin) values('AUTOMNE',3,6);
 
 insert into region(nom)values('Analamanga'),('Itasy'),('Bongolava'),('Vakinakaratra'),('Haute Matsiatra'),
 ('Sofia'),('Diana'),('Sava'),('Alaotra Mangoro'),('Betsiboka'),('Menabe'),('Androy'),('Ihorombe'),('Amoron i Mania'),('Vatovavy Fitovinanay'),('Melaky'),('Analajirofo'),('Antsinanana'),('Atsimo Antsinanana'),('Atsimo Andrefana'),('Anosy'),('Boeny');
+
+
+/*CHANGEMENT**/
+-- alter table PlanningCollecte add column daa

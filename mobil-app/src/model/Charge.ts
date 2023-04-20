@@ -1,3 +1,5 @@
+import { SQLite, SQLiteObject } from '@ionic-native/sqlite/ngx';
+import { SQLitePorter } from '@ionic-native/sqlite-porter/ngx';
 export class Charge {
     collect : any
     dateCharge : any
@@ -15,10 +17,13 @@ export class Charge {
     public save() {
         fetch("http://localhost:8080").then(
             ()=>{
-                alert("Calling a web service for " + JSON.stringify(this))
+                console.log(this.collect);
+                // alert("Calling a web service for " + JSON.stringify(this))
             },
             (error)=>{
-                alert("Due to "+ JSON.stringify(error) + ". Adding to database for " + JSON.stringify(this))
+                console.log(this.montant+" ARIRAY");
+              
+                // alert(  "Due to "+ JSON.stringify(error) + ". Adding to database for " + JSON.stringify(this))
             }
         )
     }

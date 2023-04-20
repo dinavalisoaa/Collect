@@ -1,11 +1,13 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\CollectController;
 use App\Http\Controllers\CollecteurController;
 use App\Http\Controllers\EngardController;
 use App\Http\Controllers\PlanningCollectController;
 use App\Http\Controllers\PointCollectController;
 use App\Http\Controllers\ProduitController;
+use App\Http\Controllers\StatistiqueController;
 use App\Models\Collecteur;
 use Illuminate\Support\Facades\Route;
 
@@ -30,16 +32,24 @@ Route::get('/', function () {
 });
 Route::post('admin/action_login', [AdminController::class, 'action_login']);
 Route::get('admin/home', [AdminController::class, 'home']);
+Route::get('admin/dash', [AdminController::class, 'dash']);
+Route::get('admin/detail', [AdminController::class, 'detail']);
+// Route::get('admin/ajou', [AdminController::class, 'detail']);
 
 Route::get('collecteur/list', [CollecteurController::class, 'list']);
 Route::get('collecteur/home', [CollecteurController::class, 'home']);
 Route::get('collecteur/add', [CollecteurController::class, 'add']);
 Route::post('collecteur/action_add', [CollecteurController::class, 'action_add']);
+Route::get('statistique/all', [StatistiqueController::class, 'autres']);
+Route::get('statistique/recette_depense', [StatistiqueController::class, 'recette_depense']);
 
 
+Route::get('collecte/list', [CollectController::class, 'list']);
 
 
 Route::get('planningcollect/list', [PlanningCollectController::class, 'list']);
+Route::get('planningcollect/detail', [PlanningCollectController::class, 'detail']);
+Route::get('planningcollect/test', [PlanningCollectController::class, 'test']);
 Route::get('planningcollect/add', [PlanningCollectController::class, 'add']);
 Route::get('planningcollect/action_add', [PlanningCollectController::class, 'action_add']);
 

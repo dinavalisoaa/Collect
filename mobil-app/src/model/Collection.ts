@@ -14,7 +14,6 @@ export class Collection {
         this.pu = parameters.pu
         this.collectionerId = parameters.collectionerId
     }
-
     /**
      * save
      */

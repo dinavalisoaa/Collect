@@ -77,11 +77,11 @@
             <div class="col-lg-4 col-md-4 d-flex flex-column align-items-center justify-content-center">
 
               <div class="d-flex justify-content-center py-4">
-                <a href="index.html" class="logo d-flex align-items-center w-auto">
-                  <img src="/assets/img/logo.svg" height="200px"/>
+                <!-- <a href="index.html" class="logo d-flex align-items-center w-auto"> -->
+                  <img src="/assets/img/2.png" height="140px"/>
 
-                  <span class="d-none d-lg-block">Collect</span>
-                </a>
+                  <!-- <span class="d-none d-lg-block">Collect</span> -->
+                <!-- </a> -->
               </div><!-- End Logo -->
 
               <div class="card mb-3">

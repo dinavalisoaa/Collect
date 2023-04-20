@@ -15,8 +15,11 @@ export default function AddCharge() {
             dateCharge : dateCharge,
             montant : montant,
         }
+        console.log(montant);
         new Charge(obj).save();
     }
+    
+ 
 
     return (
         <IonPage>
