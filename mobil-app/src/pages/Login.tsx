@@ -28,11 +28,14 @@ const Login: React.FC = () => {
 
 		let user = new User(email, password);
 
-		if(!user.tryLogin()){
-			presentToast("bottom");
-		} else {
-			redirect();
-		}
+		user.tryLogin().then((result) => {
+			if(!result){
+				presentToast("bottom");
+			} else {
+				redirect();
+			}
+		})
+		
 	}
 
 	return (

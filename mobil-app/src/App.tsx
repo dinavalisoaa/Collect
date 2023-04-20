@@ -29,29 +29,12 @@ import '@ionic/react/css/display.css';
 
 /* Theme variables */
 import './theme/variables.css';
-import DetailVehicule from './pages/DetailVehicule';
-import InsertForm from './pages/InsertForm';
-import { SQLiteHook, useSQLite } from 'react-sqlite-hook';
-import { useState } from 'react';
-import Liste from './pages/Liste';
-import ListeRequete from './pages/ListeRequete';
-import Synchronisation from './pages/Synchronisation';
-
-interface JsonListenerInterface {
-  jsonListeners: boolean,
-  setJsonListeners: React.Dispatch<React.SetStateAction<boolean>>,
-}
-interface existingConnInterface {
-  existConn: boolean,
-  setExistConn: React.Dispatch<React.SetStateAction<boolean>>,
-}
-
-// Singleton SQLite Hook
-export let sqlite: SQLiteHook;
-// Existing Connections Store
-export let existingConn: existingConnInterface;
-// Is Json Listeners used
-export let isJsonListeners: JsonListenerInterface;
+import Login from './pages/Login';
+import AddCollect from './pages/AddCollect';
+import AddCharge from './pages/AddCharge';
+import SidebarMenu from './components/Menu';
+import { Database } from './services/Database';
+import { useEffect } from 'react';
 
 setupIonicReact();
 
@@ -59,56 +42,36 @@ const App: React.FC = () => {
   const [existConn, setExistConn] = useState(false);
   existingConn = { existConn: existConn, setExistConn: setExistConn };
 
-  sqlite = useSQLite();
-  console.log(`$$$ in App sqlite.isAvailable  ${sqlite.isAvailable} $$$`);
-  return(
-    <IonApp>
-      <IonReactRouter>
-        <IonTabs>
-          <IonRouterOutlet>
-            <Route exact path="/vehicules/:idVehicule">
-              <DetailVehicule />
-            </Route>
-            <Route exact path="/personnes">
-              <Liste />
-            </Route>
-            <Route exact path="/requetes">
-              <ListeRequete />
-            </Route>
-            <Route exact path="/synchronisation">
-              <Synchronisation />
-            </Route>
-            <Route exact path="/InsertForm">
-              <InsertForm />
-            </Route>
-            <Route exact path="/">
-              <Redirect to="/InsertForm" />
-            </Route>
-          </IonRouterOutlet>
+	useEffect(()=>{
+		new Database().initDB();
+	},[]);
 
-          <IonTabBar slot="bottom">
-            <IonTabButton tab="liste" href="/personnes">
-              <IonIcon icon={person} />
-              <IonLabel>Liste</IonLabel>
-            </IonTabButton>
-            <IonTabButton tab="requete" href="/requetes">
-              <IonIcon icon={list} />
-              <IonLabel>Requete</IonLabel>
-            </IonTabButton>
-            <IonTabButton tab="synchronisation" href="/synchronisation">
-              <IonIcon icon={sync} />
-              <IonLabel>Synchronisation</IonLabel>
-            </IonTabButton>
-            <IonTabButton tab="form" href="/InsertForm">
-              <IonIcon icon={save} />
-              <IonLabel>Enregistrement</IonLabel>
-            </IonTabButton>
-          </IonTabBar>
-
-        </IonTabs>
-      </IonReactRouter>
-    </IonApp>
-  );
+  	return (
+		<IonApp>
+			<SidebarMenu onDeconnexion={handleDeconnection} />
+			<IonContent>
+				<IonReactRouter>
+					<IonRouterOutlet id="main-content">
+						<Route exact path="/home">
+							<Home />
+						</Route>
+						<Route exact path="/add-collect">
+							<AddCollect />
+						</Route>
+						<Route exact path="/add-charge">
+							<AddCharge />
+						</Route>
+						<Route exact path="/login">
+							<Login />
+						</Route>
+						<Route exact path="/">
+							<Redirect to="/login" />
+						</Route>
+					</IonRouterOutlet>
+				</IonReactRouter>
+			</IonContent>
+		</IonApp>
+	)
 };
 
 export default App;
