@@ -34,7 +34,7 @@ export class Database {
             tableList.forEach((result)=>{
                     db.executeSql(result, []).then(() => {
                     // alert(JSON.stringify())
-                    alert("executed "+ result);
+                    // alert("executed "+ result);
                 }).catch((error: Error) => {
                     alert(JSON.stringify(error))
                     console.error('Error creating table users', error);

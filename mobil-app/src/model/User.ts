@@ -40,16 +40,9 @@ export class User {
         })
 
         let result = await db.executeSql("SELECT id,email FROM users WHERE email=? AND motDePasse=?",[this.login, this.password]);
-
-        alert(JSON.stringify(result.rows));
-        let user = {
-            id : "1",
-            nom : "Aina",
-            login : "admin@gmail.com",
-            password : "admin"
-        }
-        if(this.login === user.login && this.password === user.password){
-            localStorage.setItem("admin",JSON.stringify({id : user.id, nom : user.nom}));
+        if(result.rows.length > 0){
+            let user = result.rows.item(0);
+            localStorage.setItem("admin",JSON.stringify({id : user.id, nom : user.email}));
             return true;
         }
         return false;
