@@ -17,7 +17,12 @@ class CollectController extends Controller
   
     public function list()
     {
-        $all = Collect::fromQuery("select *from collect where id=".request('planning'));
+        $all=array();
+        if(request('tous')!=null){
+            $all = Collect::fromQuery("select *from collect where 1=1 ");
+        }else{
+            $all = Collect::fromQuery("select *from collect where 1=1 and id=".request('planning'));
+        }
         return view('collecte.list', [
             'list' => $all
         ]);

@@ -27,6 +27,7 @@ class StockController extends Controller{
             $idprod = request('produit');
             $prod = Produit::find($idprod);
             $mouv = new Mouvement();
+            // echo request('engard');
             $mouv->prixunitaire = request('pu');
             $mouv->quantite = request('quantite');
             $mouv->date = request('date');
@@ -35,6 +36,7 @@ class StockController extends Controller{
             $prod->addEntree($mouv);
             return $this->newMouvement(['success0'=>'Enregistrer avec succes!']);
         } catch (\Exception $e) {
+            // throw $e;
             return $this->newMouvement(['error0'=>$e->getMessage()]);
         }
     }

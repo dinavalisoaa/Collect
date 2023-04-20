@@ -99,8 +99,6 @@
           </div><!-- End Sales Card -->
           <div class="col-xxl-4 col-md-4">
             <div class="card info-card sales-card">
-
-
               <div class="card-body">
                 <h5 class="card-title">Dépense</h5>
 
@@ -167,7 +165,7 @@
 
                   </div>
                 </a>
-                <a href="#">
+                <a href="/listMouvement">
 
                   <div class="card" id="c1">
                     <div class="card-body">
@@ -194,8 +192,11 @@
                 </a>
                 <!-- </div> -->
                 <!-- <div class="box1"> -->
-                <a href="#">
+                <!-- <a href="#"> -->
+                <a href="/statistique/all">
+                  <!-- <button class="btn btn-danger">Plus de Statistiques</button> -->
 
+                  <!-- </a> -->
                   <div class="card" id="c1">
                     <div class="card-body"><h2 class="card-title">Statistiques</h2>
                     <img src="/assets/img/stat1.svg" />
@@ -214,10 +215,7 @@
                                 <h5 class="card-title">Recette, dépense, bénéfice de l'année</h5>
                                     <!-- Line Chart -->
                                      <h5>       
-            <a href="/statistique/all">
-                  <button class="btn btn-danger">Plus de Statistiques</button>
-
-                  </a>
+            
                   </h5>
                                 <div id="reportsChart"></div>
                                 <script>

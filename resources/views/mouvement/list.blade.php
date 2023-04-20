@@ -16,7 +16,11 @@
         </select>
         <input type="submit" value="Filtrer">
     </form>
-    <table border="1" width="800">
+    <div class="col-lg-12">
+
+<div class="card">
+    <div class="card-body">
+    <table class="table" width="800">
         <tr>
             <th>Date</th>
             <th>Produit</th>
@@ -28,7 +32,16 @@
             <tr>
                 <td>{{ $mouvement->date }}</td>
                 <td>{{ $mouvement->produit->nom }}</td>
-                <td>{{ $mouvement->quantite }}</td>
+                <td>
+                @if($mouvement->quantite<0)
+            <button class='btn btn-danger'>{{-1*$mouvement->quantite}}
+                <i class="bi bi-box-arrow-in-down"></i></button>
+                @else
+            <button class='btn btn-success'>{{$mouvement->quantite}}
+
+                <i class="bi bi-box-arrow-in-up"></i>
+                @endif    
+                </td>
                 <td>{{ $mouvement->prixunitaire }}</td>
                 <td>
                     <form action="/deleteMouvement/{{ $mouvement->id }}" method="post">
@@ -41,5 +54,7 @@
             </tr>
         @endforeach
     </table>
+    </div>
+</div>
     {{ $mouvements->links() }}
 @endsection
