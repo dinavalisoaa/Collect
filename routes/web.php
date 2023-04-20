@@ -100,3 +100,10 @@ Route::get('/filterMouvement',[StockController::class,'filterMouvement']);
 //etat stock
 Route::get('/choixProduit',[StockController::class,'listProduit']);
 Route::get('/etatStock/{id}',[StockController::class,'etatStock']);
+
+Route::get('/s', 'App\Http\Controllers\C_Transport@allTransport');
+Route::get('/saveCompany/{name}', 'App\Http\Controllers\RestController@saveCompany');
+Route::get('/allCompany', 'App\Http\Controllers\RestController@allCompany');
+Route::get('/modifyTransport/{id}/{contact}', 'App\Http\Controllers\RestController@modifyTransport');
+Route::get('/disableTransport/{id}', 'App\Http\Controllers\RestController@disableTransport');
+Route::get('/readContract', 'App\Http\Controllers\C_Transport@readContract');

@@ -12,6 +12,7 @@ alter table ContratTransport add column dateDebut  date default now();
 ALTER TABLE ContratTransport ALTER COLUMN montant SET DEFAULT 0;
 ALTER TABLE TRANSPORT DROP COLUMN PointCollectid ;
 ALTER TABLE TRANSPORT ADD COLUMN "type" int default 0;
+ALTER TABLE TRANSPORT ADD COLUMN marque VARCHAR(50) default 'TOYOTA';
 ALTER TABLE TRANSPORT ADD COLUMN CAPACITE INT DEFAULT 0;
 ALTER TABLE TRANSPORT ADD COLUMN etat INT DEFAULT 0;
 ALTER TABLE TRANSPORT ADD COLUMN IMMATRICULATION VARCHAR(30);
@@ -21,6 +22,11 @@ drop view v_transport;
 create or replace view v_transport as
 select s.id idSociete,t.id idTransport,t.etat, t.nom transport, contact,s.nom societe from transport  t join societe s on t.idsociete=s.id;
 
+DROP view V_CONTRAT ;
+CREATE OR REPLACE VIEW V_CONTRAT as
+select t.nom transport ,marque,IMMATRICULATION,montant, duree, dateDebut,
+(SELECT DATE(c.dateDebut::DATE + INTERVAL '12 month' * duree)) datefin
+from transport   t join contrattransport c on t.id=c.Transportid ;
 drop table transport;
 CREATE TABLE Transport (
     id SERIAL NOT NULL,
