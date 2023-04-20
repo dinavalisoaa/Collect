@@ -31,11 +31,11 @@
                 <td>{{ $mouvement->quantite }}</td>
                 <td>{{ $mouvement->prixunitaire }}</td>
                 <td>
-                    <a href="/modifMouvement/{{ $mouvement->id }}"><button>Modifier</button></a>
                     <form action="/deleteMouvement/{{ $mouvement->id }}" method="post">
                         @csrf
                         @method('delete')
-                        <button>Delete</button>
+                        <a href="/modifMouvement/{{ $mouvement->id }}"><button type="button">Modifier</button></a>
+                        <button type="submit">Delete</button>
                     </form>
                 </td>
             </tr>
