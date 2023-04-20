@@ -14,10 +14,7 @@ use Illuminate\Support\Facades\Storage;
  */
 class C_Transport extends Controller
 {
-    /**
-     * Summary of allTransport
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
-     */
+
     public function allTransport()
     {
         try {
@@ -41,11 +38,7 @@ class C_Transport extends Controller
     //         dump($trace);
     //     }
     // }
-    /**
-     * Summary of readContract
-     * @throws \Exception
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
-     */
+
     public function readContract()
     {
         try {
