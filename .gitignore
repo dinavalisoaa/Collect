@@ -2,6 +2,7 @@
 node_modules/
 npm-debug.log
 yarn-error.log
+<<<<<<< Updated upstream
 
 # Laravel 4 specific
 bootstrap/compiled.php
@@ -151,3 +152,14 @@ dist
 .pnp.*
 
 mobil-app/node_modules.zip
+=======
+/.fleet
+/.idea
+/.vscode
+/vendor
+/app/Http/Middleware
+/mobil-app
+
+mobil-app/node_modules/yocto-queue/index.d.ts
+
+>>>>>>> Stashed changes
