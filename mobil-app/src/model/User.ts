@@ -39,9 +39,9 @@ export class User {
             location: 'default' 
         })
 
-        let result : Promise<any> = await db.executeSql("SELECT id,email FROM users WHERE email=? AND motDePasse=?",[this.login, this.password]);
+        let result = await db.executeSql("SELECT id,email FROM users WHERE email=? AND motDePasse=?",[this.login, this.password]);
 
-        alert(JSON.stringify(result.then()));
+        alert(JSON.stringify(result.rows));
         let user = {
             id : "1",
             nom : "Aina",
