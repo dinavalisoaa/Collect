@@ -14,11 +14,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view(
-        'admin.home',
-        [
-            'id' => '1'
-        ]
-    );
+    return view('transport');
 });
-// Route::get('users/home', [UsersController::class, 'test']);
+Route::get('/', 'App\Http\Controllers\Transport@allTransport');
+Route::get('/saveCompany/{name}', 'App\Http\Controllers\RestController@saveCompany');
+Route::get('/allCompany', 'App\Http\Controllers\RestController@allCompany');
+Route::get('/modifyTransport/{id}/{contact}', 'App\Http\Controllers\RestController@modifyTransport');
+Route::get('/disableTransport/{id}', 'App\Http\Controllers\RestController@disableTransport');
+Route::get('/readContract', 'App\Http\Controllers\Transport@readContract');
