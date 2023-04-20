@@ -63,3 +63,13 @@ VALUES
     ('Atsimo Andrefana'),
     ('Anosy'),
     ('Boeny');
+
+INSERT INTO SOCIETE VALUES
+    (DEFAULT,'Materauto'),
+    (DEFAULT,'HRF Madagascar'),
+    (DEFAULT,'AfriBaba'),
+    (DEFAULT,'MadaRentCar');
+INSERT INTO TRANSPORT  VALUES
+    (DEFAULT,'Camion KIA Bongo','0345678909',1,1,1),
+    (DEFAULT,'Camion KIA Bongo','0340987645',1,2,20),
+    (DEFAULT,'Camion KIA Bongo','0345678345',1,2,10);

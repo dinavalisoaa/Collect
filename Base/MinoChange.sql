@@ -1,14 +1,23 @@
 alter table  Transport drop column Transportid  ;
 drop table societe;
 create table societe(
-    id SERIAL NOT NULL,
+    id SERIAL PRIMARY key ,
     nom VARCHAR(50)
 );
 alter table transport add column idsociete int;
-ALTER TABLE transport ADD CONSTRAINT idsociete FOREIGN KEY (idsociete) REFERENCES societe (id);
+ALTER TABLE transport ADD  FOREIGN KEY (idsociete) REFERENCES societe(id);
 alter table ContratTransport drop column PlanningCollecteid;
 alter table ContratTransport add column duree  int default 0;
-alter table ContratTransport add column dateDebut  date default now()''
+alter table ContratTransport add column dateDebut  date default now();
+ALTER TABLE ContratTransport ALTER COLUMN montant SET DEFAULT 0;
+ALTER TABLE TRANSPORT DROP COLUMN PointCollectid ;
+ALTER TABLE TRANSPORT ADD COLUMN "type" int default 0;
+ALTER TABLE TRANSPORT ADD COLUMN CAPACITE INT DEFAULT 0;
+
+
+drop view v_transport;
+create or replace view v_transport as
+select s.id idSociete,t.id idTransport, t.nom transport, contact,s.nom societe from transport  t join societe s on t.idsociete=s.id;
 
 drop table transport;
 CREATE TABLE Transport (
@@ -46,7 +55,6 @@ CREATE TABLE Collect (
     "date" date,
     prixUnitaire FLOAT8,
     Produitid INT4 NOT NULL,
-    PointCollectid INT4 NOT NULL,
     Collecteurid INT4 NOT NULL,
     PRIMARY KEY (id)
 );
