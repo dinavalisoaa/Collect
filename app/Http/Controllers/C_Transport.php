@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Storage;
 /**
  * Summary of Transport
  */
-class Transport extends Controller
+class C_Transport extends Controller
 {
     /**
      * Summary of allTransport
