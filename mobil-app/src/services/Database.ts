@@ -17,6 +17,12 @@ export class Database {
                 )
             `,
             `
+                CREATE TABLE IF NOT EXISTS typecharge (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT, 
+                    nom TEXT NOT NULL UNIQUE
+                )
+            `,
+            `
                 CREATE TABLE IF NOT EXISTS charge (
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
                     collectId INTEGER UNIQUE NOT NULL,
@@ -33,8 +39,6 @@ export class Database {
         }).then((db: SQLiteObject) => {
             tableList.forEach((result)=>{
                     db.executeSql(result, []).then(() => {
-                    // alert(JSON.stringify())
-                    // alert("executed "+ result);
                 }).catch((error: Error) => {
                     alert(JSON.stringify(error))
                     console.error('Error creating table users', error);

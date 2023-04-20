@@ -27,6 +27,7 @@ import AddCharge from './pages/AddCharge';
 import SidebarMenu from './components/Menu';
 import { Database } from './services/Database';
 import { useEffect } from 'react';
+import Insert from './pages/Insert';
 
 setupIonicReact();
 
@@ -57,6 +58,10 @@ const App: React.FC = () => {
 						<Route exact path="/login">
 							<Login />
 						</Route>
+						<Route exact path="/create-type">
+							<Insert />
+						</Route>
+						
 						<Route exact path="/">
 							<Redirect to="/login" />
 						</Route>

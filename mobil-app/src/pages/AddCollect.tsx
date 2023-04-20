@@ -66,9 +66,7 @@ export default function AddCollect() {
                                     <option value={1}>Andavamamba</option>
                                 </select>
                             </IonItem>
-                            <IonButton type="submit" expand="block">
-                                <IonIcon icon={addOutline} />Add
-                            </IonButton>
+                            <IonButton type="submit" expand="block">Confirmer</IonButton>
                         </form>
                     </IonCardContent>
                 </IonCard>
