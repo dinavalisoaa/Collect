@@ -26,7 +26,7 @@ export class Database {
                 CREATE TABLE IF NOT EXISTS charge (
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
                     collectId INTEGER UNIQUE NOT NULL,
-                    dateCollect TIMESTAMP,
+                    dateCharge TIMESTAMP,
                     typeCharge INTEGER,
                     montant DOUBLE
                 )

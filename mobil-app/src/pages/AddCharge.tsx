@@ -8,6 +8,7 @@ export default function AddCharge() {
     const [collect, setCollect] = useState(1);
     const [dateCharge, setDateCharge] = useState();
     const [montant, setMontant] = useState(0);
+    const [charge, setCharge] = useState(0);
 
     const [typeCharge,setTypeCharge] = useState<any[]>();
 
@@ -18,8 +19,11 @@ export default function AddCharge() {
             collect : collect,
             dateCharge : dateCharge,
             montant : montant,
+            typeCharge : charge
         }
-        new Charge(obj).save();
+        new Charge(obj).save().then(()=>{
+            new Charge({}).findAll()
+        });
     }
 
     useEffect(()=>{
@@ -50,7 +54,6 @@ export default function AddCharge() {
                                     {typeCharge?.map((element)=>{
                                         return(<option value={element.id}>{element.nom}</option>)
                                     })}
-                                    
                                 </select>
                             </IonItem>
                             <IonItem>
@@ -59,9 +62,10 @@ export default function AddCharge() {
                             </IonItem>
                             <IonItem>
                                 <IonLabel>Type de charge</IonLabel>
-                                <select onSelect={(e:any) => setCollect(e.target.value)}>
-                                    <option value={1}>Fixe</option>
-                                    <option value={2}>Variable</option>
+                                <select onSelect={(e:any) => setCharge(e.target.value)}>
+                                    {typeCharge?.map((element)=>{
+                                        return(<option value={element.id}>{element.nom}</option>)
+                                    })}
                                 </select>
                             </IonItem>
                             <IonItem>
