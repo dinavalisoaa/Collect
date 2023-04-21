@@ -40,7 +40,11 @@ class Produit extends Model{
 
     public function addEntree(Mouvement $mouv){
         if($this->typestockid==1){
-            $stock = Stock::where('produitid', $this->id)->get()[0];
+            $stock = Stock::where('produitid', $this->id)->first();
+            if(!$stock) {
+                $stock = new Stock();
+                $stock->produitid = $this->id;
+            }
             $total = $stock->total();
             $stock->quantite += $mouv->quantite;
             $stock->prixunitaire = ($total + $mouv->montant()) / $stock->quantite;

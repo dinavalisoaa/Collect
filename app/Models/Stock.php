@@ -17,6 +17,12 @@ class Stock extends Model{
     public $timestamps = false;
     use HasFactory;
 
+    public function __construct()
+    {
+        $this->attributes['quantite'] = 0;
+        $this->attributes['prixunitaire'] = 0.0;
+    }
+
     public function total(){
         return $this->quantite * $this->prixunitaire;
     }
