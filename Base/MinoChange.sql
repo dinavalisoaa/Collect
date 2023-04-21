@@ -24,9 +24,12 @@ select s.id idSociete,t.id idTransport,t.etat, t.nom transport, contact,s.nom so
 
 DROP view V_CONTRAT ;
 CREATE OR REPLACE VIEW V_CONTRAT as
-select t.nom transport ,marque,IMMATRICULATION,montant, duree, dateDebut,
-(SELECT DATE(c.dateDebut::DATE + INTERVAL '12 month' * duree)) datefin
-from transport   t join contrattransport c on t.id=c.Transportid ;
+select t.id, s.nom societe, t.nom transport ,marque,IMMATRICULATION,montant, duree,
+to_char(dateDebut::date, 'DD Month YYYY') dateDebut,
+to_char((SELECT DATE(c.dateDebut::DATE + INTERVAL '12 month' * duree))::date, 'DD Month YYYY') datefin
+from transport   t join contrattransport c on t.id=c.Transportid
+join societe s on t.idSociete=s.id;
+
 drop table transport;
 CREATE TABLE Transport (
     id SERIAL NOT NULL,

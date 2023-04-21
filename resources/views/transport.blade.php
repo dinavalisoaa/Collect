@@ -82,16 +82,15 @@
                     </td>
             </tr>
             @endforeach
-
-
         </tbody>
     </table>
     <h1>Contract</h1>
     <form action="/readContract" method="GET">
-        <label for=""></label>
-        <select name="company" >
-            @foreach ($companies as $company )
-                <option value="{{$company->id}}">{{$company->nom}}</option>
+        @csrf
+        <label for="">Transport</label>
+        <select name="idTransport">
+            @foreach ($companies as $company)
+                <option value="{{ $company->id }}">{{ $company->immatriculation }}</option>
             @endforeach
         </select>
         <input type="submit" value="Consulter">
@@ -104,12 +103,14 @@
             <input type="text" id="transport" name="transport" readonly><br><br>
             <label for="contact">Contact :</label>
             <input type="text" id="contact" name="contact"><br><br>
+            <label  id='telerror' class='error-message'></label>
             <label for="contact">Societe :</label>
             <input type="text" id="societe" name="societe" readonly><br><br>
             <button id="modify">Modifier</button>
             <button id="delete">N'est plus en service</button>
         </div>
     </div>
+
     <script>
         // Societe:
         var ajout = document.getElementById("ajout");
@@ -152,39 +153,44 @@
                 document.getElementById("transport").value = transport;
                 document.getElementById("contact").value = contact;
                 document.getElementById("societe").value = societe;
+                const contactLabel = document.getElementById("telerror");
 
                 document.getElementById("contact").addEventListener("click", function() {
-                    const contactLabel = document.getElementById("telerror");
-                        contactLabel.textContent = "";
+                    contactLabel.textContent = "";
                 });
                 modify.addEventListener("click", function() {
                     if (document.getElementById("contact").value.length > 10) {
                         document.getElementById("contact").classList.add("error");
-                        var errorMessage =
-                            "<label  id='telerror' class='error-message'>Le contact ne doit contenir que 10 chiffres</label>";
-                        document.getElementById("contact").insertAdjacentHTML('afterend',errorMessage);
+                        contactLabel.textContent = "Le contact ne doit contenir que 10 chiffres";
                         document.getElementById("contact").value = contact;
+                    } else {
+                        var xrt = new XMLHttpRequest();
+                        xrt.onreadystatechange = function() {
+                            if (this.readyState === XMLHttpRequest.DONE && this.status ===
+                                200) {
+                                console.log('Contact=>' + document.getElementById("contact")
+                                    .value);
+                            }
+                        };
+                        console.log("http://127.0.0.1:8000/modifyTransport/" + idSociete + "/" +
+                            contact);
+                        xrt.open("GET", "http://127.0.0.1:8000/modifyTransport/" + idSociete + "/" +
+                            document.getElementById("contact").value, true);
+                        xrt.send();
+                        window.location.replace("http://127.0.0.1:8000/");
+                        modal.style.display = "none";
                     }
-                    var xrt = new XMLHttpRequest();
-                    xrt.onreadystatechange = function() {
-                        if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
-                            console.log('Contact=>' + document.getElementById("contact").value);
-                        }
-                    };
-                    console.log( "http://127.0.0.1:8000/modifyTransport/"+idSociete+"/"+contact);
-                    xrt.open("GET", "http://127.0.0.1:8000/modifyTransport/"+idSociete+"/"+document.getElementById("contact").value, true);
-                    xrt.send();
-                    window.location.replace("http://127.0.0.1:8000/");
-                    modal.style.display = "none";
+
                 });
                 deletee.addEventListener("click", function() {
+                    console.log('Delete');
                     var xr = new XMLHttpRequest();
                     xr.onreadystatechange = function() {
                         if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
                             console.log('idSociete=>' + idSociete);
                         }
                     };
-                    xr.open("GET", "http://127.0.0.1:8000/disableTransport/"+idSociete, true);
+                    xr.open("GET", "http://127.0.0.1:8000/disableTransport/" + idTransport, true);
                     xr.send();
                     window.location.replace("http://127.0.0.1:8000/");
                     modal.style.display = "none";

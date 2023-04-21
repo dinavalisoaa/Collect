@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Contrat;
 use App\Models\Societe;
+use App\Models\V_Contrat;
 use App\Models\V_transport;
 use App\Models\Transport;
+use Dompdf\Dompdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Storage;
@@ -19,10 +22,10 @@ class C_Transport extends Controller
     {
         try {
             $transports = V_transport::where('etat', 0)->get();
-             $companies = Cache::remember('companies', now()->addHour(), function () {
-                return Transport::get(['id', 'nom']);
+            $companies = Cache::remember('companies', now()->addHour(), function () {
+                return Transport::get(['id', 'immatriculation']);
             });
-            return view('transport', ['transports' => $transports,'companies' =>$companies]);
+            return view('transport', ['transports' => $transports, 'companies' => $companies]);
 
         } catch (\Exception $e) {
             echo $e->getMessage();
@@ -39,17 +42,30 @@ class C_Transport extends Controller
     //     }
     // }
 
-    public function readContract()
-    {
+    public function readContract(){
         try {
-            // $nom = request('nom');
+            // $id = request('idTransport');
+            $idTransport=1;
+            $contrat=V_Contrat::find($idTransport);
             $filePath = 'contrat.txt';
             if (file_exists($filePath)) {
                 $content = file_get_contents($filePath);
+                $content=str_replace('{{$contrat->societe}}', $contrat->societe, $content);
+                $content=str_replace('{{$contrat->transport}}', $contrat->transport, $content);
+                $content=str_replace('{{$contrat->montant}}', $contrat->montant, $content);
+                $content=str_replace('{{$contrat->marque}}', $contrat->marque, $content);
+                $content=str_replace('{{$contrat->immatriculation}}', $contrat->immatriculation, $content);
+                $content=str_replace('{{$contrat->duree}}', $contrat->duree, $content);
+                $content=str_replace('{{$contrat->datedebut}}', $contrat->datedebut, $content);
+                $content=str_replace('{{$contrat->datefin}}', $contrat->datefin, $content);
                 if (!empty($content)) {
                     $contentWithBr = nl2br($content);
                     $html = '<div>' . $contentWithBr . '</div>';
-                    return view('contract', ['html' => $html]);
+                    $pdf = new Dompdf();
+                    $pdf->loadHtml($html);
+                    $pdf->render();
+                    $output = $pdf->output();
+                    return response($output, 200)->header('Content-Type', 'application/pdf');
                 } else {
                     throw new \Exception('Le contenu du fichier est vide.');
                 }
@@ -61,6 +77,13 @@ class C_Transport extends Controller
         } catch (\Exception $e) {
             echo $e->getMessage();
         }
+    }
+    public function showPDF(){
+        $pdf = new Dompdf();
+        $pdf->loadHtml('<h1>Hello, World!</h1>');
+        $pdf->render();
+        $output = $pdf->output();
+        return response($output, 200)->header('Content-Type', 'application/pdf');
     }
 
 }

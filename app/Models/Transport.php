@@ -11,7 +11,14 @@ class Transport extends Model{
     protected $fillable=[
         'idsociete',
         'nom',
-        'contact'
+        'contact',
+        'idsociete',
+        'type',
+        'capacite',
+        'immatriculation',
+        'etat',
+        'marque'
+
     ];
     public $timestamps=false;
     //exemple getter

@@ -22,3 +22,4 @@ Route::get('/allCompany', 'App\Http\Controllers\RestController@allCompany');
 Route::get('/modifyTransport/{id}/{contact}', 'App\Http\Controllers\RestController@modifyTransport');
 Route::get('/disableTransport/{id}', 'App\Http\Controllers\RestController@disableTransport');
 Route::get('/readContract', 'App\Http\Controllers\C_Transport@readContract');
+Route::get('/showPDF', 'App\Http\Controllers\C_Transport@showPDF');
