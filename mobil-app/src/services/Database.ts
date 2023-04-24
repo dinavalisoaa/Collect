@@ -30,6 +30,15 @@ export class Database {
                     typeCharge INTEGER,
                     montant DOUBLE
                 )
+            `,
+            `
+                CREATE TABLE IF NOT EXISTS Produit (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT, 
+                    nom TEXT, 
+                    TypeProduitid INTEGER NOT NULL, 
+                    Saisonid INTEGER NOT NULL, 
+                    dureePeremption DOUBLE, 
+                    modeConservation TEXT;
             `
         ];
 

@@ -70,7 +70,6 @@ export default function AddCollect() {
                         </form>
                     </IonCardContent>
                 </IonCard>
-                {/* <Link to="/add-charge"> Ajouter une charge </Link> */}
             </IonContent>
         </IonPage>
     )
