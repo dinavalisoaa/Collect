@@ -47,7 +47,7 @@ export class Database {
                 )
             `,
             `
-                CREATE TABLE PlanningCollecte (
+                CREATE TABLE IF NOT EXISTS PlanningCollecte (
                     id INTEGER PRIMARY KEY AUTOINCREMENT, 
                     tonnage DOUBLE, 
                     dateDelai DATE, 

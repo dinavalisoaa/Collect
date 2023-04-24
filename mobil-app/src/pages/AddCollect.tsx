@@ -25,13 +25,7 @@ export default function AddCollect() {
             }
             
 
-            new Collection(obj).create().then(()=>{
-                new Collection({}).findAll().then((result)=>{
-                    result.forEach(element => {
-                        alert(JSON.stringify(element));
-                    });
-                })
-            });
+            new Collection(obj).create();
         }
     }
 
