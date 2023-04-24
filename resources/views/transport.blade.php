@@ -84,6 +84,41 @@
             @endforeach
         </tbody>
     </table>
+    <h3>Ajout Transport</h3>
+    <form action="/saveTransport" method="POST">
+        @csrf
+        <label for="nom">Nom :</label>
+        <input type="text" id="nom" name="nom"><br><br>
+
+        <label for="contact">Contact :</label>
+        <input type="text" id="contact" name="contact"><br><br>
+
+        <label for="capacite">Capacité :</label>
+        <input type="number" id="capacite" name="capacite"><br><br>
+
+        <label for="marque">Marque :</label>
+        <input type="text" id="marque" name="marque"><br><br>
+
+        <label for="immatriculation">Immatriculation :</label>
+        <input type="text" id="immatriculation" name="immatriculation"><br><br>
+
+        <label for="societe">Société :</label>
+        <select id="societe" name="societe">
+            @foreach ($societes as $societe)
+                <option value="{{ $societe->id }}">{{ $societe->nom }}</option>
+            @endforeach
+        </select><br><br>
+
+        <label for="type">Type :</label>
+        <select id="type" name="type">
+            <option value="1">Petite</option>
+            <option value="2">Grande</option>
+        </select><br><br>
+
+        <input type="submit" value="Soumettre">
+    </form>
+
+
     <h1>Contract</h1>
     <form action="/readContract" method="GET">
         @csrf
@@ -95,6 +130,22 @@
         </select>
         <input type="submit" value="Consulter">
     </form>
+    <form action="/saveContrat" method="POST">
+        @csrf
+        <label for="">Transport</label>
+        <select name="idTransport">
+            @foreach ($companies as $company)
+                <option value="{{ $company->id }}">{{ $company->immatriculation }}</option>
+            @endforeach
+        </select>
+        <label for="duree">Duree:</label>
+        <input type="number" name="duree" id="duree">
+        <label for="montant">Montant</label>
+        <input type="number" name="montant" id="montant">
+        <label for="datedebut">Date debut:</label>
+        <input type="date" name="datedebut" id="datedebut">
+        <input type="submit" value="Soumettre">
+    </form>
     <div id="myModal" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
@@ -103,16 +154,16 @@
             <input type="text" id="transport" name="transport" readonly><br><br>
             <label for="contact">Contact :</label>
             <input type="text" id="contact" name="contact"><br><br>
-            <label  id='telerror' class='error-message'></label>
+            <label id='telerror' class='error-message'></label>
             <label for="contact">Societe :</label>
             <input type="text" id="societe" name="societe" readonly><br><br>
             <button id="modify">Modifier</button>
             <button id="delete">N'est plus en service</button>
         </div>
     </div>
-
+    <a href="/sendEmail">Send Mail </a>
+    <a href="/marchandise">Marchandise </a>
     <script>
-        // Societe:
         var ajout = document.getElementById("ajout");
         ajout.addEventListener("click", function() {
             var nom = document.getElementById("nom").value;
@@ -154,7 +205,6 @@
                 document.getElementById("contact").value = contact;
                 document.getElementById("societe").value = societe;
                 const contactLabel = document.getElementById("telerror");
-
                 document.getElementById("contact").addEventListener("click", function() {
                     contactLabel.textContent = "";
                 });
@@ -168,12 +218,9 @@
                         xrt.onreadystatechange = function() {
                             if (this.readyState === XMLHttpRequest.DONE && this.status ===
                                 200) {
-                                console.log('Contact=>' + document.getElementById("contact")
-                                    .value);
+                                console.log('Contact=>' + document.getElementById("contact").value);
                             }
                         };
-                        console.log("http://127.0.0.1:8000/modifyTransport/" + idSociete + "/" +
-                            contact);
                         xrt.open("GET", "http://127.0.0.1:8000/modifyTransport/" + idSociete + "/" +
                             document.getElementById("contact").value, true);
                         xrt.send();
@@ -183,7 +230,6 @@
 
                 });
                 deletee.addEventListener("click", function() {
-                    console.log('Delete');
                     var xr = new XMLHttpRequest();
                     xr.onreadystatechange = function() {
                         if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {

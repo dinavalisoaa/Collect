@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Cache;
 
 class Societe extends Model{
     use HasFactory;
@@ -13,4 +14,11 @@ class Societe extends Model{
         'nom'
     ];
     public $timestamps=false;
+    public function allCompany(){
+        $companies = Cache::remember('company', now()->addHour(), function () {
+            return Societe::all();
+        });
+        return $companies;
+    }
+    
 }

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Cache;
 
 class Transport extends Model{
     use HasFactory;
@@ -29,4 +30,11 @@ class Transport extends Model{
     // public function setNameAttribute($value) {
     //     $this->attributes['name'] = strtolower($value);
     // }
+    
+    public static function allShipping() {
+        $companies = Cache::remember('companies', now()->addHour(), function () {
+            return Transport::get(['id', 'immatriculation']);
+        });
+        return $companies;
+    }
 }
