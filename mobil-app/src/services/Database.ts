@@ -12,8 +12,13 @@ export class Database {
             `,
             `
                 CREATE TABLE IF NOT EXISTS collect (
-                    id INTEGER PRIMARY KEY AUTOINCREMENT,
-                    label TEXT NOT NULL
+                    id INTEGER PRIMARY KEY AUTOINCREMENT, 
+                    quantite INTEGER, 
+                    dateCollect DATE, 
+                    prixUnitaire DOUBLE, 
+                    Produitid INTEGER NOT NULL, 
+                    PlanningCollect INTEGER NOT NULL, 
+                    Collecteurid INTEGER NOT NULL
                 )
             `,
             `
@@ -38,7 +43,16 @@ export class Database {
                     TypeProduitid INTEGER NOT NULL, 
                     Saisonid INTEGER NOT NULL, 
                     dureePeremption DOUBLE, 
-                    modeConservation TEXT;
+                    modeConservation TEXT
+                )
+            `,
+            `
+                CREATE TABLE PlanningCollecte (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT, 
+                    tonnage DOUBLE, 
+                    dateDelai DATE, 
+                    budget DOUBLE
+                )
             `
         ];
 

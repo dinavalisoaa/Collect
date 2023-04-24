@@ -1,30 +1,38 @@
-import { IonButton, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonContent, IonHeader, IonIcon, IonInput, IonItem, IonLabel, IonPage, IonTitle, IonToolbar } from "@ionic/react"
-import { addOutline } from "ionicons/icons";
+import { IonButton, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonContent, IonHeader, IonInput, IonItem, IonLabel, IonPage, IonTitle, IonToolbar } from "@ionic/react"
 import { useState } from "react"
-import { Link } from "react-router-dom";
 import SessionManagement from "../components/SessionManage";
 import { Collection } from "../model/Collection";
 
 export default function AddCollect() {
     const [produit, setProduit] = useState(1);
     const [dateCollect, setDate] = useState();
-    const [pointCollect, setPointCollect] = useState(1);
+    const [planningCollect, setPlanningCollect] = useState(1);
     const [quantite, setQuantite] = useState(0);
     const [pu, setPU] = useState(0);
 
     function addCollect( e: React.FormEvent<HTMLFormElement> ) {
         e.preventDefault();
+        let admin = localStorage.getItem("admin")
 
-        let obj = {
-            produit : produit,
-            dateCollect : dateCollect,
-            point : pointCollect,
-            quantite : quantite,
-            pu : pu,
-            collectionerId : localStorage.getItem("adminId")
+        if(admin != null){
+            let obj = {
+                produit : produit,
+                dateCollect : dateCollect,
+                planningCollect : planningCollect,
+                quantite : quantite,
+                prixUnitaire : pu,
+                Collecteurid : JSON.parse(admin).id
+            }
+            
+
+            new Collection(obj).create().then(()=>{
+                new Collection({}).findAll().then((result)=>{
+                    result.forEach(element => {
+                        alert(JSON.stringify(element));
+                    });
+                })
+            });
         }
-
-        new Collection(obj).save();
     }
 
     return (
@@ -61,9 +69,9 @@ export default function AddCollect() {
                                 <IonInput type="number" value={quantite} onChange={(e:any) => setQuantite(e.target.value)} required/>
                             </IonItem>
                             <IonItem>
-                                <IonLabel>Point de collect</IonLabel>
-                                <select onSelect={(e:any) => setPointCollect(e.target.value)}>
-                                    <option value={1}>Andavamamba</option>
+                                <IonLabel>Planning de collect</IonLabel>
+                                <select onSelect={(e:any) => setPlanningCollect(e.target.value)}>
+                                    <option value={1}>Plan 1</option>
                                 </select>
                             </IonItem>
                             <IonButton type="submit" expand="block">Confirmer</IonButton>
