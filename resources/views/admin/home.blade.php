@@ -165,7 +165,7 @@
 
                   </div>
                 </a>
-                <a href="/listMouvement">
+                <a href="/choixProduit">
 
                   <div class="card" id="c1">
                     <div class="card-body">
@@ -179,7 +179,7 @@
                 </a>
                 </div>
                 <div class="box1">
-                <a href="#">
+                <a href="/commande/list">
 
                   <div class="card" id="c1">
                     <div class="card-body">

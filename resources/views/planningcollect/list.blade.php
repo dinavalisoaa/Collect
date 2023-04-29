@@ -33,7 +33,7 @@
                             @foreach ($list as $row)
                                 <tr>
                                     <td>{{ $row->getPointCollecte()->nom }}</td>
-                                    <td>{{ $row->budget }}Ar</td>
+                                    <td>{{ Util::format($row->budget) }}Ar</td>
                                     <!--  -->
                                     <td>
                                 <button class='btn btn-success'>

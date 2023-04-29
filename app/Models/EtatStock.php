@@ -15,4 +15,9 @@ class EtatStock extends Model{
     ];
     public $timestamps = false;
     use HasFactory;
+    public function sortie()
+    {
+        
+        # code...
+    }
 }

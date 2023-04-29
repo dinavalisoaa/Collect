@@ -27,8 +27,8 @@
   <style>
     #ppl {
       width: 70px;
+     
     }
-
     .box {
       display: grid;
       color: #fff;
@@ -53,6 +53,14 @@
       border-radius: .25rem;
       transition: color .15s
     }
+    #tbl{
+      background-color: #d1e2dc;
+      width: 80px;
+      height: 50px;
+     text-align: center;
+    }
+    
+   
   </style>
 
   <body>
@@ -60,7 +68,7 @@
       <div class="row">
         <div class="col-md-1">
         </div>
-        <div class="col-md-10">
+        <div class="col-md-11">
           <div class="card">
             <div class="card-body">
               <h1 class="card-title">Planning</h1>
@@ -126,23 +134,23 @@
                             // var_dump($arr);
                             // if()
                             if (count($arr) > 0) {
-                              echo '<td id="ppl"  style="width:110px;height:100px">' .  '<a href="/admin/detail?date=' . $da . '">' . $compteur_jours . '</a>';
+                              echo '<td style="">' .  '<a  class="btn" id="tbl" href="/admin/detail?date=' . $da . '">' . $compteur_jours . '</a>';
                               $o = 0;
                               foreach ($arr as $key) {
                                 // # code...
-                                echo '<div class="box">' . $key->getPointCollecte()->nom . ":" . $key->budget . 'Ar' . '</div>';
+                                echo '<a href="/admin/detail?date='.$da.'"><div class="box">'. $key->getPointCollecte()->nom . ":" . $key->budget . 'Ar' . '</div></a>';
                                 // if()
                                 $o++;
                                 if ($o >= 1) {
                                   if (count($arr) > 1) {
-                                    echo '<div class="box">+' . (count($arr) - 1) . '</div>';
+                                    echo '<a href="/admin/detail?date='.$da.'"><div class="box">+' . (count($arr) - 1) . '</div></a>';
                                   }
                                   break;
                                 }
                               }
                               echo  '</td>';
                             } else {
-                              echo '<td>' . '<a href="/admin/detail?date=' . $da . '">' . $compteur_jours . '</a></td>';
+                              echo ''.'<td>' . '<a class="btn" id="tbl" href="/admin/detail?date=' . $da . '">' . $compteur_jours . '</a></td>';
                             }
                             $compteur_jours++;
                           }

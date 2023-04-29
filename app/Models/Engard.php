@@ -14,4 +14,10 @@ class Engard extends Model
     {
         return Region::find($this->regionid);
     }
+    public function getPointCollectes(){
+        return EngardPointCollecte::where('engardid',$this->id)->get();
+    }
+    public function getPointCollectNonLier(){
+        return PointCollect::fromQuery(" select p.* from (select pointcollectid,engardid from engardpointcollecte where engardid=".$this->id.") as tab full join pointcollect p on p.id=tab.pointcollectid where  pointcollectid is null;");
+    }
 }

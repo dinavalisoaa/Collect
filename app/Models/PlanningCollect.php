@@ -13,6 +13,11 @@ class PlanningCollect extends Model
     public function getProduit()
     {
         return Produit::find($this->produitid);
+    }
+    public function counts()
+    {
+        $o=Collect::fromQuery('select *From collect where planningcollecteid='.$this->id);
+        return count($o);
     } public function getPointCollecte()
     {
         return PointCollect::find($this->pointcollectid);

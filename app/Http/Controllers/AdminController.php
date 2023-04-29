@@ -6,6 +6,7 @@ use App\Models\Admin;
 use App\Models\Collecteur;
 use App\Models\Mois;
 use App\Models\Statistique;
+use App\Models\Util;
 use Collator;
 use Exception;
 use Illuminate\Http\Request;
@@ -26,13 +27,14 @@ class AdminController extends Controller
     public function home()
     {
         $mois = Mois::all();
-        $recette = Statistique::montant_recette();
-        $depense = Statistique::montant_depense();
-        $benefice = Statistique::montant_benefice();
-        $somme_recette = Statistique::somme_recette();
-        $somme_depense = Statistique::somme_depense();
-        $somme_benefice = Statistique::somme_benefice();
-        return view('admin/home', [
+        
+        $recette = (Statistique::montant_recette());
+        $depense =( Statistique::montant_depense());
+        $benefice =(Statistique::montant_benefice());
+        $somme_recette =Util::format( Statistique::somme_recette());
+        $somme_depense =Util::format( Statistique::somme_depense());
+        $somme_benefice = Util::format(Statistique::somme_benefice());
+        return view('admin.home', [
             'mois' => $mois,
             'recette' => $recette,
             'depense' => $depense,

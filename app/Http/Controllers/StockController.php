@@ -25,6 +25,7 @@ class StockController extends Controller{
     public function insertEntree(){
         try {
             $idprod = request('produit');
+
             $prod = Produit::find($idprod);
             $mouv = new Mouvement();
             // echo request('engard');
@@ -34,6 +35,10 @@ class StockController extends Controller{
             $mouv->produitid = $idprod;
             $mouv->engardid = request('engard');
             $prod->addEntree($mouv);
+            \DB::update('update collect set etat=1 where id='.request('id'));
+            if(request('planning')!=null){
+                return redirect('collecte/list?planning='.request('planning'));
+            }
             return $this->newMouvement(['success0'=>'Enregistrer avec succes!']);
         } catch (\Exception $e) {
             // throw $e;
@@ -50,7 +55,7 @@ class StockController extends Controller{
             $mouv->date = request('date');
             $mouv->produitid = $idprod;
             $mouv->engardid = request('engard');
-            $prod->addSortie($mouv);
+            $prod->addSortie($mouv,1);
             return $this->newMouvement(['success1'=>'Enregistrer avec succes!']);
         } catch (\Exception $e) {
             return $this->newMouvement(['error1'=>$e->getMessage()]);
@@ -95,7 +100,6 @@ class StockController extends Controller{
             return $this->modifMouvement($id, ['error'=>$e->getMessage()]);
         }
     }
-
     public function deleteMouvement($id){
         $mouv = Mouvement::find($id);
         $mouv->delete();
@@ -132,6 +136,7 @@ class StockController extends Controller{
     public function etatStock($id){
         $prod = Produit::with('stocks')->with('typestock')->with('mouvements')->find($id);
         $etat = EtatStock::find($id);
+        $mouv = Mouvement::fromQuery('select *From mouvementstock where produitid='.$id);
         if(!isset($etat)){
             $etat = new EtatStock();
             $etat->valeurstock = 0;
@@ -140,6 +145,7 @@ class StockController extends Controller{
         return view('mouvement.etat',[
             'produit' => $prod,
             'etat' => $etat,
+            'mouvements' => $mouv
         ]);
     }
 }

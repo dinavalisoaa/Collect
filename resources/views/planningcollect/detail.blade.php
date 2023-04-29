@@ -4,8 +4,8 @@
     <h1>Planning Collect</h1>
     <nav>
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="/admin/dash">Retour</a></li>
-        </ol> 
+            <li class="breadcrumb-item"><a href="/admin/dash">Retour</a></li>
+        </ol>
     </nav>
 </div>
 
@@ -45,7 +45,7 @@
                         </td>
                         <td>
                             <div class="col-sm-10">
-                                <input type="text" value=<?php echo  $dates ?> class="form-control" disabled>
+                                <input type="text" value="<?php echo Util::date($dates) ?>" class="form-control" disabled>
 
                                 <input type="hidden" value=<?php echo  $dates ?> name="datedelai" class="form-control">
 
@@ -65,49 +65,61 @@
         </table>
         <!-- End General Form Elements -->
     </div>
-<!-- </div> -->
-<div class="card">
-    <div class="card-body">
-        <h5 class="card-title">Planning Collect</h5>
-        <table class="table datatable">
-            <thead>
-                <tr>
-                    <th scope="col">Nom du produit</th>
-                    <th scope="col">Budget</th>
-                    <th scope="col">Reste</th>
-                    <th scope="col">Delai</th>
-                    <th scope="col">Etat</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($list as $row)
-                <tr>
-                    <td>{{ $row->getPointCollecte()->nom }}</td>
-                    <td>{{ $row->budget }}Ar</td>
-                    <td>{{ $row->getEtatBudget() }}Ar</td>
+    <!-- </div> -->
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Planning Collect</h5>
+            <h2>Date:{{
+               date('j F Y',strtotime($dates))
+            }}</h2>
+            <table class="table datatable">
+                <thead>
+                    <tr>
+                        <th scope="col">Point Collect</th>
+                        <th scope="col">Budget</th>
+                        <th scope="col">Reste</th>
+                        <th scope="col">Delai</th>
+                        <th scope="col">Etat</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($list as $row)
+                    <tr>
+                        <td>{{ $row->getPointCollecte()->nom }}</td>
+                        <td>{{ Util::format($row->budget) }}Ar</td>
+                        <td>{{ Util::format($row->getEtatBudget()) }}Ar</td>
 
-                    <td>
-                        <button class='btn btn-success'>
-                            {{ date('j F Y', strtotime($row->datedelai)) }}
-                        </button>
-                    </td>
-                    <td>
-                        <a href="/collecte/list?planning={{ $row->id}}">
-                            <button class='btn btn-secondary'>
-                                Etat d'avancement
+                        <td>
+                            <button class='btn btn-success'>
+                                {{ date('j F Y', strtotime($row->datedelai)) }}
                             </button>
-                        </a> 
-                    </td>
+                        </td>
+                        <td>
+                            <a href="/collecte/list?planning={{ $row->id}}">
 
-                </tr>
-                @endforeach
+                                <button class="btn btn-danger">
+                                    <i class="bi bi-box-arrow-in-down"></i>
+                                    {{$row->counts()}} collectés
+                                </button>
+                            </a>
+                        </td>
 
-            </tbody>
-        </table>
-        <!-- End Table with stripped rows -->
+                        <td>
+                            <a href="/charge/list?id={{ $row->id}}">
+                                <button class="btn btn-light">
+                                    <i class="ri-table-fill"></i>
+                                    Charge
+                                </button> </a>
+                        </td>
+                    </tr>
+                    @endforeach
 
+                </tbody>
+            </table>
+            <!-- End Table with stripped rows -->
+
+        </div>
     </div>
-</div>
 
 
 </div>

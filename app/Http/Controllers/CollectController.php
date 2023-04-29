@@ -14,17 +14,21 @@ class CollectController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-  
+
     public function list()
     {
-        $all=array();
-        if(request('tous')!=null){
+        $all = array();
+        if (request('tous') != null) {
             $all = Collect::fromQuery("select *from collect where 1=1 ");
-        }else{
-            $all = Collect::fromQuery("select *from collect where 1=1 and id=".request('planning'));
+        } else {
+            if (request('etat') != null) {
+                $all = Collect::fromQuery("select *from collect where 1=1 and planningcollecteid=" . request('planning').' and etat='.request('etat'));
+            } else {
+                $all = Collect::fromQuery("select *from collect where 1=1 and planningcollecteid=" . request('planning'));
+            }
         }
         return view('collecte.list', [
-            'list' => $all
+            'list' => $all, 'plan' => request('planning')
         ]);
     }
 }

@@ -1,9 +1,12 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ChargeController;
 use App\Http\Controllers\CollectController;
 use App\Http\Controllers\CollecteurController;
+use App\Http\Controllers\CommandeController;
 use App\Http\Controllers\EngardController;
+use App\Http\Controllers\LivraisonController;
 use App\Http\Controllers\PlanningCollectController;
 use App\Http\Controllers\PointCollectController;
 use App\Http\Controllers\ProduitController;
@@ -11,6 +14,7 @@ use App\Http\Controllers\StatistiqueController;
 use App\Models\Collecteur;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DataController;
+use App\Http\Controllers\EngardPointCollectController;
 use App\Http\Controllers\StockController;
 
 /*
@@ -33,6 +37,8 @@ Route::get('/', function () {
         ]
     );
 });
+
+
 Route::post('admin/action_login', [AdminController::class, 'action_login']);
 Route::get('admin/home', [AdminController::class, 'home']);
 Route::get('admin/dash', [AdminController::class, 'dash']);
@@ -62,9 +68,20 @@ Route::get('engard/add', [EngardController::class, 'add']);
 Route::get('engard/action_add', [EngardController::class, 'action_add']);
 
 
+Route::get('charge/list', [ChargeController::class, 'list']);
+Route::get('charge/add', [ChargeController::class, 'add']);
+Route::get('charge/action_add', [ChargeController::class, 'action_add']);
+
+
 Route::get('pointcollect/list', [PointCollectController::class, 'list']);
 Route::get('pointcollect/add', [PointCollectController::class, 'add']);
 Route::get('pointcollect/action_add', [PointCollectController::class, 'action_add']);
+
+Route::get('e-pointcollect/list', [EngardPointCollectController::class, 'list']);
+Route::get('e-pointcollect/add', [EngardPointCollectController::class, 'add']);
+Route::get('e-pointcollect/action_add', [EngardPointCollectController::class, 'action_add']);
+Route::get('e-pointcollect/detail', [EngardPointCollectController::class, 'detail']);
+
 
 
 Route::get('produit/list', [ProduitController::class, 'list']);
@@ -72,16 +89,31 @@ Route::get('produit/add', [ProduitController::class, 'add']);
 Route::get('produit/action_add', [ProduitController::class, 'action_add']);
  
 
+
+Route::get('client/list', [ClientController::class, 'liste']);
+Route::get('client/add', [ClientController::class, 'add']);
+Route::get('client/find', [ClientControler::class, 'find']);
+Route::get('commande/list', [CommandeController::class, 'liste']);
+Route::get('commande/add', [CommandeController::class, 'add_form']);
+Route::get('commande/voir_detail', [CommandeController::class, 'voir_detail']);
+// Route::get('commande/da', [CommandeController::class, 'new_commande']);
+Route::get('commande/add_details', [CommandeController::class, 'add_detail']);
+Route::get('commande/new_detail', [CommandeController::class, 'new_detail']);
+
+
+
 //list module
 Route::view('/all','all');
-
 //getsion marge beneficiaire
 Route::get('/modifMarge',[DataController::class,'modifMarge']);
+Route::get('/livraison/add_livraison',[LivraisonController::class,'add_livraison']);
+Route::get('/livraison/liste',[LivraisonController::class,'liste']);
+
 Route::post('/updateMarge',[DataController::class,'updateMarge']);
 
 //insertion mouvement stock
 Route::get('/newMouvement',[StockController::class,'newMouvement']);
-Route::post('/insertEntree',[StockController::class,'insertEntree']);
+Route::get('/insertEntree',[StockController::class,'insertEntree']);
 Route::post('/insertSortie',[StockController::class,'insertSortie']);
 
 //list mouvement stock

@@ -50,6 +50,10 @@ class Produit extends Model{
         }
         return $val;
     }
+    public function getPrixAchat(){
+        $etat = EtatStock::find($this->id);
+        return $etat->valeurstock/$etat->quantitestock;
+    }
 
     public function addEntree(Mouvement $mouv){
         if($this->typestockid==1){
@@ -68,10 +72,32 @@ class Produit extends Model{
         }
         $mouv->save();
     }
-
-    public function addSortie(Mouvement $mouv){
+    public function epuise($qte) {
         $etat = EtatStock::find($this->id);
-        if(!isset($etat) || $etat->quantitestock < $mouv->quantite) throw new \Exception('Pas asser en stock!');
+        $prod=$etat->quantitestock;
+        $data=[
+            'etat'=>'false',
+            'message'=>'Possible'
+        ];
+        if(!isset($etat) || $etat->quantitestock < $qte)
+        { 
+            $data=[
+                'etat'=>'true',
+                'message'=>$prod
+            ];
+        return $data;
+        }
+        return $data;
+    }
+
+    public function addSortie(Mouvement $mouv,$idl){
+        $etat = EtatStock::find($this->id);
+        if(!isset($etat) || $etat->quantitestock < $mouv->quantite)
+        { 
+            return "dasdinsaidniasndiasdn";
+            throw new \Exception('Pas asser en stock! Produit'.$mouv->produitid);
+        }
+        else{
         $type = $this->typestockid;
         $mouv->quantite = -$mouv->quantite;
         $quant = $mouv->quantite;
@@ -85,6 +111,7 @@ class Produit extends Model{
             $stock->quantite += $quant;
             $stock->save();
             $mouv->save();
+            echo '---------------------';
         } else {
             $stocks = Stock::where('produitid', $this->id)
             ->where('quantite', '<>', 0)
@@ -113,5 +140,16 @@ class Produit extends Model{
                 }
             }
         }
+        $livre = new Livraison();
+        $livre->commandeid =$idl;
+        $livre->date= Util::now();
+        $livre->save();
+
+        $dlivraison=new DetailLivraison();
+        $dlivraison->livraisonid= Livraison::getLast();
+        $dlivraison->produitid=    $mouv->produitid;
+        $dlivraison->quantite=    $mouv->quantite;
+        $dlivraison->save();
     }
+}   
 }

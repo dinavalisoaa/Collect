@@ -14,5 +14,12 @@ class PointCollect extends Model
     {
         return Region::find($this->regionid);
     }
+    public function getEngard()
+    {   
+        $id=$this->id;
+            $pro=EngardPointCollecte::where('pointcollectid',$id)->get()[0];
+        return Engard::find($pro->engardid);
+        // return Engard::find(1);
+    }
 }
 
