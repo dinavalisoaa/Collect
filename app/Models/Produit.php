@@ -74,7 +74,6 @@ class Produit extends Model{
     }
     public function epuise($qte) {
         $etat = EtatStock::find($this->id);
-        $prod=$etat->quantitestock;
         $data=[
             'etat'=>'false',
             'message'=>'Possible'
@@ -83,7 +82,7 @@ class Produit extends Model{
         { 
             $data=[
                 'etat'=>'true',
-                'message'=>$prod
+                'message'=>'Quantité en stock:'.$etat->quantitestock
             ];
         return $data;
         }
@@ -94,10 +93,10 @@ class Produit extends Model{
         $etat = EtatStock::find($this->id);
         if(!isset($etat) || $etat->quantitestock < $mouv->quantite)
         { 
-            return "dasdinsaidniasndiasdn";
+            // return "dasdinsaidniasndiasdn";
             throw new \Exception('Pas asser en stock! Produit'.$mouv->produitid);
         }
-        else{
+        {
         $type = $this->typestockid;
         $mouv->quantite = -$mouv->quantite;
         $quant = $mouv->quantite;
@@ -111,7 +110,6 @@ class Produit extends Model{
             $stock->quantite += $quant;
             $stock->save();
             $mouv->save();
-            echo '---------------------';
         } else {
             $stocks = Stock::where('produitid', $this->id)
             ->where('quantite', '<>', 0)
@@ -140,10 +138,14 @@ class Produit extends Model{
                 }
             }
         }
-        $livre = new Livraison();
-        $livre->commandeid =$idl;
-        $livre->date= Util::now();
-        $livre->save();
+        $taille=Livraison::fromQuery("select *from livraison where commandeid=".$idl);
+        if(count($taille)==0){
+            $livre = new Livraison();
+            $livre->commandeid =$idl;
+            $livre->date= Util::now();
+            $livre->save();
+        }
+      
 
         $dlivraison=new DetailLivraison();
         $dlivraison->livraisonid= Livraison::getLast();

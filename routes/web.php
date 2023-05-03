@@ -95,6 +95,8 @@ Route::get('client/add', [ClientController::class, 'add']);
 Route::get('client/find', [ClientControler::class, 'find']);
 Route::get('commande/list', [CommandeController::class, 'liste']);
 Route::get('commande/add', [CommandeController::class, 'add_form']);
+Route::get('/livraison/payer', [LivraisonController::class, 'payer']);
+
 Route::get('commande/voir_detail', [CommandeController::class, 'voir_detail']);
 // Route::get('commande/da', [CommandeController::class, 'new_commande']);
 Route::get('commande/add_details', [CommandeController::class, 'add_detail']);

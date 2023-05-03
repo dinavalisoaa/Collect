@@ -204,7 +204,7 @@ VALUES
     ('2023-01-30',1,2000000),
     ('2023-02-14',1,5000000),
     ('2023-03-06',2,7500000),
-    ('2023-05-14',3,6800000),
+    ('2023-05-14',3,6800000);
     ('2023-10-20',4,5900000),
     ('2023-04-20',5,5000000),
     ('2023-06-10',6,8100000),
@@ -253,6 +253,21 @@ VALUES
     (19000,'2023-12-23',1,12);
 
 
+INSERT INTO Charge(montant,date,TypeChargeid,Collectid)
+VALUES
+    (30000,'2023-01-23',1,1),
+    (25000,'2023-02-23',1,2),
+    (15000,'2023-03-23',2,3),
+    (12000,'2023-04-23',1,4),
+    (52000,'2023-04-23',1,4),
+    (38000,'2023-05-23',2,5),
+    (45500,'2023-06-23',2,6),
+    (40000,'2023-07-23',2,7),
+    (21500,'2023-08-23',1,8),
+    (22500,'2023-09-23',1,9),
+    (6000,'2023-10-23',2,10),
+    (28000,'2023-11-23',1,11),
+    (19000,'2023-12-23',1,12);
 DROP TABLE Transport CASCADE;
 CREATE TABLE Transport(
     id SERIAL PRIMARY KEY,
@@ -315,8 +330,12 @@ VALUES
 
 --VIEW
 --Recette
-CREATE or REPLACE View v_recette as
+CREATE or REPLACE View v_recette_temp as
 select m.abreviation,extract(month from p.date) as mois,sum(p.montant) as montant from paiement p join mois m on m.id = extract(month from p.date) where extract(year from p.date) = extract(year from current_date) group by extract(month from p.date),m.abreviation order by mois;
+drop view v_recette;
+
+    CREATE or REPLACE View v_recette as
+    select mois.abreviation,mois.id::int as mois, coalesce(montant,0) montant from v_recette_temp v right join mois on mois.id=v.mois;
 
 --Depense
     --Charge variable
@@ -341,24 +360,11 @@ select v.abreviation,v.mois,(v.montant+c.montant+t.montant+(select montant from 
 
 --Benefice
 CREATE or REPLACE View v_benefice as
-select r.abreviation,r.mois,r.montant-d.montant as montant from v_recette r join v_depense d on r.mois = d.mois;
+select r.abreviation,r.mois,r.montant-coalesce(d.montant,0) as montant from v_recette r  left join v_depense d on r.mois = d.mois;
 
 --Fidelite client
 CREATE or REPLACE View v_fideliteclient as
 select cl.nom,cl.adresse,cl.email,cl.telephone,count(c.*) from commande c join client cl on c.clientid = cl.id group by c.clientid,cl.nom,cl.adresse,cl.email,cl.telephone order by count desc;
 
 
-
-update pointcollect set nom='Isalo' where id=3;
-update pointcollect set nom='Alasora' where id=4;
-update pointcollect set nom='Antsirabe' where id=5;
-update pointcollect set nom='Ambanja' where id=6;
-update pointcollect set nom='Bongolava' where id=7;
-update pointcollect set nom='Boeny' where id=8;
-
-alter table PlanningCollecte drop column produitid;
-alter table PlanningCollecte drop column tonnage;
-alter table collect add column PlanningCollecteId int;
-alter table collect add FOREIGN key (PlanningCollecteId) REFERENCES PlanningCollecte(id);
-alter table collect add drop column pointcollect;
 

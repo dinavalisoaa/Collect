@@ -29,6 +29,34 @@ protected $guard=['updated_at','created_at'];
         $tab = Commande::fromQuery("select * from commande order by id desc limit 1");
         return $tab[0];
     }
+    public function getLivraison(){
+        $detail=Livraison::fromQuery("select * from livraison where commandeid=".$this->id);
+        return $detail[0];
+    }
+    public function sortiePossible(){
+        $data=[
+            'etat'=>'true',
+            'message'=>'possible'
+        ];
+        $detail=DetailCommande::fromQuery("select * from detailcommande where commandeid=".$this->id);
+        foreach ($detail as $row ) {
+         if($row->getProduit()->epuise($row->quantite)['etat']=='true'){
+            $data=[
+                'etat'=>'false',
+                'message'=>'Stock epuisé:'.$row->getProduit()->nom
+            ];
+            return $data;
+         }
+        }
+        if(count($detail)==0){
+            $data=[
+                'etat'=>'false',
+                'message'=>'No command' ];
+            return $data;
+        }
+    
+        return $data;
+    }
 
     public static function details($id){
         $tab = Commande::fromQuery("select d.*,p.nom from detailcommande d join produit p on d.produitid = p.id where commandeid = ".$id);

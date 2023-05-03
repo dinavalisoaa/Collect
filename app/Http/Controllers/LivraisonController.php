@@ -6,6 +6,7 @@ use App\Models\Commande;
 use App\Models\Client;
 use App\Models\Detail;
 use App\Models\DetailLivraison;
+use App\Models\Paiement;
 use App\Models\Util;
 use App\Models\Livraison;
 use App\Models\Mouvement;
@@ -42,13 +43,13 @@ class LivraisonController extends Controller
                 $idprod = $key->produitid;
                 $prod = Produit::find($idprod);
 // echo $prod->epuise($key->quantite);
-                // $mouv = new Mouvement();
-                // $mouv->quantite = $key->quantite;
-                // $mouv->produitid = $idprod;
-                // $mouv->date = Util::now();;
-                // $mouv->engardid = 1;
-                
-                // $prod->addSortie($mouv,request('id'));
+                $mouv = new Mouvement();
+                $mouv->quantite = $key->quantite;
+                $mouv->produitid = $idprod;
+                $mouv->date = Util::now();;
+                $mouv->engardid = 1;
+                // echo $prod->epuise($key->quantite)['message'];
+                $prod->addSortie($mouv,request('id'));
             // break;
             }
             $message = '200';
@@ -60,11 +61,31 @@ class LivraisonController extends Controller
         if($message=='200'){
         \DB::update('update commande set etat=1 where id='.request('id'));
         }
-        // return redirect('commande/list?mess/age=' . $message);
-
-        # code...
+    
     }
+    public function payer(){
+        $li=Livraison::find(request('id'));
+        try {
+    $livra=new Paiement();
 
+            $livra->date=Util::now();
+            $livra->livraisonid=request('id');
+            // {{$row->getLivraison()->getResteApayer()}}
+            $livra->montant=request('montant');
+            $livra->save();
+        } catch (\Throwable $th) {
+            return json_encode(
+                ['message'=>'404','montant'=>0]
+            );
+        }
+        $mon=$li->getResteApayer();
+        $mon=Util::format($mon);
+
+    return json_encode(
+        ['message'=>'200','montant'=>$mon]
+    );
+
+    }
     public function new_commande(Request $req)
     {
         $commande = new Commande();

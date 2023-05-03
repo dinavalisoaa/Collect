@@ -18,7 +18,6 @@ class CommandeController extends Controller
     public function voir_detail()
     {
         $detail=DetailCommande::fromQuery("select *from detailcommande where commandeid=".request('id'));
-        echo $detail[0]->getProduit();
         return view('commande.detail',[
             'detail'=>$detail,'id'=>request('id')
         ]);

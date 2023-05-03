@@ -127,3 +127,12 @@ alter TABLE mouvementstock alter COLUMN "date" set DEFAULT  CURRENT_Date;
 alter TABLE commande add column etat int DEFAULT 0;
 
  delete from mouvementstock where id>100;
+ update commande set etat=0;
+ delete from detaillivraison;
+
+ delete from livraison;
+
+
+ select *from livraison;
+ select *from detaillivraison;
+ select *from mouvementStock where id>100

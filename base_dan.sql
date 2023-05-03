@@ -22,12 +22,9 @@ CREATE TABLE data(
     id SERIAL PRIMARY KEY,
     margeBenef double precision
 );
-
 INSERT INTO data VALUES(DEFAULT,20);
-
-INSERT INTO produit VALUES(DEFAULT, 'Lentille', 3, 1, 18, 'endroit sec', 1);
-INSERT INTO produit VALUES(DEFAULT, 'Orange', 1, 1, 18, 'refrigere', 2);
-INSERT INTO produit VALUES(DEFAULT, 'testlifo', 2, 1, 18, 'a l''ombre', 3);
+INSERT INTO produit(id,nom,TypeProduitid,debutsaison,finsaison,dureePeremption,modeConservation,typestockid) VALUES(DEFAULT, 'Lentille', 3, 4,8, 18, 'endroit sec', 1),
+(DEFAULT, 'Orange', 1, 1,3, 18, 'refrigere', 2),(DEFAULT, 'testlifo', 2, 3,7, 18, 'ombre', 3);
 
 INSERT INTO engard VALUES(DEFAULT, 'ENGARD1', 0, 0, 1);
 INSERT INTO engard VALUES(DEFAULT, 'ENGARD2', 0, 0, 1);
@@ -38,8 +35,14 @@ INSERT INTO MouvementStock VALUES(DEFAULT, 2000, -2, '2023-04-03', 1, 1);
 INSERT INTO MouvementStock VALUES(DEFAULT, 1900, 5, '2023-04-01', 1, 2);
 INSERT INTO MouvementStock VALUES(DEFAULT, 2600, 5, '2023-04-02', 2, 2);
 
-CREATE VIEW v_etatstock AS
-SELECT produitid, SUM(COALESCE(prixUnitaire, 0)*quantite) valeurstock, SUM(quantite) quantitestock FROM mouvementStock GROUP BY produitid;
+drop view v_etatstock;
+CREATE VIEW v_etatstock_V1 AS
+SELECT produitid, SUM
+(COALESCE(prixUnitaire, 0)*quantite) valeurstock, SUM(quantite) quantitestock FROM mouvementStock GROUP BY produitid;
+
+Create view v_etatstock
+select pr.id as produitid ,coalesce(valeurstock,0) valeurstock,coalesce(quantitestock,0) quantitestock
+from v_etatstock_V1 v RIGHT join produit pr on pr.id=v.produitid;
 
 ALTER TABLE etatstock ADD COLUMN dateentree date DEFAULT now();
 ALTER TABLE etatstock ADD COLUMN prixunitaire double precision DEFAULT 0;

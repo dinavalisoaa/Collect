@@ -40,6 +40,7 @@
                                     <td>{{ $row->quantite }}</td>
                                     <td>
 >>>{{ $row->getProduit()->epuise($row->quantite)['etat'] }}<<<<
+>>>{{ $row->getProduit()->epuise($row->quantite)['message'] }}<<<<
                                     </td>
                                     <td>{{ Util::format($row->prixunitaire) }}Ar</td>
                                     <td><a href="#" class="text-primary"></a></td>
