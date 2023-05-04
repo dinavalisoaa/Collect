@@ -1,7 +1,9 @@
 import { IonButton, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonContent, IonHeader, IonInput, IonItem, IonLabel, IonPage, IonTitle, IonToolbar } from "@ionic/react"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import SessionManagement from "../components/SessionManage";
 import { Collection } from "../model/Collection";
+import { PlanningCollecte } from "../model/PlanningCollecte";
+import { Produit } from "../model/Produit";
 
 export default function AddCollect() {
     const [produit, setProduit] = useState(1);
@@ -9,6 +11,9 @@ export default function AddCollect() {
     const [planningCollect, setPlanningCollect] = useState(1);
     const [quantite, setQuantite] = useState(0);
     const [pu, setPU] = useState(0);
+
+    const [produits, setProduits] = useState<any[]>();
+    const [planningCollects, setPlanningCollects] = useState<any[]>();
 
     function addCollect( e: React.FormEvent<HTMLFormElement> ) {
         e.preventDefault();
@@ -29,6 +34,16 @@ export default function AddCollect() {
         }
     }
 
+    useEffect(()=>{
+        new Produit({}).findAll().then((value)=>{
+            setProduits(value);
+        });
+
+        new PlanningCollecte({}).findAll().then((value)=>{
+            setPlanningCollects(value);
+        });
+    },[]);
+
     return (
         <IonPage>
             <IonHeader>
@@ -47,7 +62,11 @@ export default function AddCollect() {
                             <IonItem>
                                 <IonLabel>Produit</IonLabel>
                                 <select onSelect={(e:any) => setProduit(e.target.value)}>
-                                    <option value={1}>Manioc</option>
+                                    {
+                                        produits?.map((element)=>{
+                                            return <option value={element.id}>{element.nom}</option>
+                                        })
+                                    }
                                 </select>
                             </IonItem>
                             <IonItem>
@@ -65,7 +84,11 @@ export default function AddCollect() {
                             <IonItem>
                                 <IonLabel>Planning de collect</IonLabel>
                                 <select onSelect={(e:any) => setPlanningCollect(e.target.value)}>
-                                    <option value={1}>Plan 1</option>
+                                    {
+                                        planningCollects?.map((element)=>{
+                                            return <option value={element.id}>Planning N-{element.id}</option>
+                                        })
+                                    }
                                 </select>
                             </IonItem>
                             <IonButton type="submit" expand="block">Confirmer</IonButton>
