@@ -3,6 +3,9 @@ import { IonApp, IonContent, IonRouterOutlet, setupIonicReact } from '@ionic/rea
 import { IonReactRouter } from '@ionic/react-router';
 import Home from './pages/Home';
 
+/* My css */
+import './assets/scss/app.scss';
+
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
 
@@ -37,9 +40,9 @@ const App: React.FC = () => {
 		localStorage.removeItem("admin");
 	}
 
-	useEffect(()=>{
-		new Database().initDB();
-	},[]);
+	// useEffect(()=>{
+	// 	new Database().initDB();
+	// },[]);
 
   	return (
 		<IonApp>

@@ -1,6 +1,6 @@
-CREATE TABLE Admin (id SERIAL NOT NULL, nom int4, login int4, mdp int4, PRIMARY KEY (id));
+CREATE TABLE Admin (id SERIAL NOT NULL, nom varchar(255), login varchar(255), mdp varchar(255), PRIMARY KEY (id));
 CREATE TABLE Charge (id SERIAL NOT NULL, montant float8, "date" date, TypeChargeid int4 NOT NULL, Collectid int4 NOT NULL, PRIMARY KEY (id));
-CREATE TABLE Collect (id SERIAL NOT NULL, quantite int4, "date" date, prixUnitaire float8, Pro9duitid int4 NOT NULL, PointCollectid int4 NOT NULL, Collecteurid int4 NOT NULL, PRIMARY KEY (id));
+CREATE TABLE Collect (id SERIAL NOT NULL, quantite int4, "date" date, prixUnitaire float8, Produitid int4 NOT NULL, PointCollectid int4 NOT NULL, Collecteurid int4 NOT NULL, PRIMARY KEY (id));
 CREATE TABLE Collecteur (id SERIAL NOT NULL, nom varchar(255), mdp varchar(255), login varchar(255), contact varchar(255), PRIMARY KEY (id));
 CREATE TABLE ContratTransport (Transportid int4 NOT NULL, montant float8, etatPaiement int4, id SERIAL NOT NULL, PlanningCollecteid int4 NOT NULL, PRIMARY KEY (id));
 CREATE TABLE Engard (id SERIAL NOT NULL, nom varchar(255), latitude float8, longitude float8, Regionid int4 NOT NULL, PRIMARY KEY (id));
