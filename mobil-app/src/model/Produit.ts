@@ -28,7 +28,7 @@ export class Produit {
         })
 
         try {
-            await db.executeSql("INSERT INTO produit(nom,TypeProduitid, Saisonid, dureePeremption, modeCoservation) values (?,?,?,?,?)",[this.nom, this.TypeProduitid, this.Saisonid, this.dureePeremption, this.modeConservation]);
+            await db.executeSql("INSERT INTO produit(nom,TypeProduitid, Saisonid, dureePeremption, modeConservation) values (?,?,?,?,?)",[this.nom, this.TypeProduitid, this.Saisonid, this.dureePeremption, this.modeConservation]);
         } catch (error) {
             alert(JSON.stringify(error));
         }

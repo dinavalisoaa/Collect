@@ -1,7 +1,7 @@
 import { IonButton, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonContent, IonHeader, IonInput, IonItem, IonLabel, IonPage, IonTitle, IonToolbar } from "@ionic/react"
 import { useEffect, useState } from "react"
 import SessionManagement from "../components/SessionManage";
-import { Charge } from "../model/Charge";
+import { Collection } from "../model/Collection";
 import { TypeCharge } from "../model/TypeCharge";
 
 export default function AddCharge() {
@@ -11,6 +11,8 @@ export default function AddCharge() {
     const [charge, setCharge] = useState(0);
 
     const [typeCharge,setTypeCharge] = useState<any[]>();
+    const [collects,setCollectes] = useState<any[]>();
+
 
 
     function addCharge( e: React.FormEvent<HTMLFormElement> ) {
@@ -21,15 +23,21 @@ export default function AddCharge() {
             montant : montant,
             typeCharge : charge
         }
-        new Charge(obj).save().then(()=>{
-            new Charge({}).findAll()
-        });
+
+        // new Charge(obj).save().then(()=>{
+        //     new Charge({}).findAll()
+        // });
     }
 
     useEffect(()=>{
         let typeCharge : TypeCharge = new TypeCharge({});
         typeCharge.findAll().then((result)=>{
             setTypeCharge(result);
+        })
+
+        let collects : Collection = new Collection({});
+        collects.findAll().then((result)=>{
+            setCollectes(result);
         })
     },[]);
 
@@ -49,10 +57,11 @@ export default function AddCharge() {
                     <IonCardContent>
                         <form onSubmit={addCharge}>
                             <IonItem>
-                                <IonLabel>Collect</IonLabel>
+                                <IonLabel>Collect </IonLabel>
                                 <select onSelect={(e:any) => setCollect(e.target.value)}>
-                                    {typeCharge?.map((element)=>{
-                                        return(<option value={element.id}>{element.nom}</option>)
+                                    {collects?.map((element)=>{
+                                        alert(JSON.stringify(element));
+                                        return(<option value={element.id}>Collection du {element.dateCollect}</option>)
                                     })}
                                 </select>
                             </IonItem>

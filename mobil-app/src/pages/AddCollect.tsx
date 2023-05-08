@@ -28,7 +28,6 @@ export default function AddCollect() {
                 prixUnitaire : pu,
                 Collecteurid : JSON.parse(admin).id
             }
-            
 
             new Collection(obj).create();
         }
@@ -61,7 +60,7 @@ export default function AddCollect() {
                         <form onSubmit={addCollect}>
                             <IonItem>
                                 <IonLabel>Produit</IonLabel>
-                                <select onSelect={(e:any) => setProduit(e.target.value)}>
+                                <select onChange={(e:any) => setProduit(e.target.value)}>
                                     {
                                         produits?.map((element)=>{
                                             return <option value={element.id}>{element.nom}</option>
@@ -71,19 +70,19 @@ export default function AddCollect() {
                             </IonItem>
                             <IonItem>
                                 <IonLabel>Date</IonLabel>
-                                <IonInput type="date" value={dateCollect} onChange={(e:any) => setDate(e.target.value)} className="text-center" required/>
+                                <IonInput type="date" value={dateCollect} onIonChange={(e:any) => setDate(e.target.value)} className="text-center" required/>
                             </IonItem>
                             <IonItem>
                                 <IonLabel position="floating">Prix Unitaire</IonLabel>
-                                <IonInput type="number" value={pu} onChange={(e:any) => setPU(e.target.value)} required/>
+                                <IonInput type="number" value={pu} onIonChange={(e:any) => setPU(e.target.value)} required/>
                             </IonItem>
                             <IonItem>
                                 <IonLabel position="floating">Quantite</IonLabel>
-                                <IonInput type="number" value={quantite} onChange={(e:any) => setQuantite(e.target.value)} required/>
+                                <IonInput type="number" value={quantite} onIonChange={(e:any) => setQuantite(e.target.value)} required/>
                             </IonItem>
                             <IonItem>
                                 <IonLabel>Planning de collect</IonLabel>
-                                <select onSelect={(e:any) => setPlanningCollect(e.target.value)}>
+                                <select onChange={(e:any) => setPlanningCollect(e.target.value)}>
                                     {
                                         planningCollects?.map((element)=>{
                                             return <option value={element.id}>Planning N-{element.id}</option>
@@ -95,7 +94,7 @@ export default function AddCollect() {
                         </form>
                     </IonCardContent>
                 </IonCard>
-            </IonContent>
+            </IonContent>   
         </IonPage>
     )
 }

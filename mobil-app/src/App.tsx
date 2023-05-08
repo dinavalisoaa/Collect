@@ -28,6 +28,7 @@ import SidebarMenu from './components/Menu';
 import { Database } from './services/Database';
 import { useEffect } from 'react';
 import Insert from './pages/Insert';
+import Sync from './pages/Sync';
 
 setupIonicReact();
 
@@ -60,6 +61,10 @@ const App: React.FC = () => {
 						</Route>
 						<Route exact path="/create-type">
 							<Insert />
+						</Route>
+
+						<Route exact path="/sync">
+							<Sync />
 						</Route>
 						
 						<Route exact path="/">

@@ -41,7 +41,7 @@ export class TypeCharge {
                 typeCharges.push(result.rows.item(index));
             }
         } catch (error) {
-            alert(JSON.stringify(error));
+            alert("Error tc : "+JSON.stringify(error));
         }
         
         return typeCharges;

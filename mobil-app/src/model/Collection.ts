@@ -9,7 +9,7 @@ export class Collection {
     Collecteurid : any
 
     constructor(parameters : any) {
-        alert(JSON.stringify(parameters))
+
         this.produit = parameters.produit
         this.dateCollect = parameters.dateCollect
         this.quantite = parameters.quantite
@@ -50,7 +50,7 @@ export class Collection {
                 produits.push(result.rows.item(index));
             }
         } catch (error) {
-            alert(JSON.stringify(error));
+            alert("Error : " + JSON.stringify(error));
         }
         
         return produits;

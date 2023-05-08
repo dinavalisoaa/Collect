@@ -1,5 +1,5 @@
 import { IonMenu, IonHeader, IonToolbar, IonTitle, IonContent, IonList, IonItem, IonIcon, IonLabel } from '@ionic/react';
-import { logOutOutline, downloadOutline, cloudUploadOutline, addSharp } from 'ionicons/icons';
+import { logOutOutline, downloadOutline, cloudUploadOutline, addSharp, syncOutline } from 'ionicons/icons';
 
 interface SidebarMenuProps {
   onDeconnexion: () => void;
@@ -26,6 +26,10 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({ onDeconnexion }) => {
                     <IonItem button routerLink='/add-charge'>
                         <IonIcon icon={cloudUploadOutline} slot="start" />
                         <IonLabel>Charge</IonLabel>
+                    </IonItem>
+                    <IonItem button routerLink='/sync'>
+                        <IonIcon icon={syncOutline} slot="start" />
+                        <IonLabel>Sync</IonLabel>
                     </IonItem>
                     <IonItem button onClick={onDeconnexion}>
                         <IonIcon icon={logOutOutline} slot="start" />
