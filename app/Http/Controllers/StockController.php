@@ -130,6 +130,8 @@ class StockController extends Controller{
     public function etatStock($id){
         $prod = Produit::with('stocks')->with('typestock')->with('mouvements')->find($id);
         $etat = EtatStock::find($id);
+        $resume = $prod->resumeStock();
+        dump($resume);
         if(!isset($etat)){
             $etat = new EtatStock();
             $etat->valeurstock = 0;
@@ -138,6 +140,7 @@ class StockController extends Controller{
         return view('mouvement.etat',[
             'produit' => $prod,
             'etat' => $etat,
+            'resume' => $resume,
         ]);
     }
 }

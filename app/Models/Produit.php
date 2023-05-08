@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Produit extends Model{
     protected $table = 'produit';
@@ -25,6 +26,11 @@ class Produit extends Model{
 
     public function typestock(){
         return $this->belongsTo(TypeStock::class, 'typestockid');
+    }
+
+    PUBLIC function resumeStock(){
+        $res = DB::select('SELECT VE.PRODUITID,COALESCE(VE.TOTALENTREE, 0) TOTALENTREE,COALESCE(VS.TOTALSORTIE, 0) TOTALSORTIE FROM V_ENTREE VE JOIN V_SORTIE VS ON VE.PRODUITID=VS.PRODUITID WHERE VE.PRODUITID=? LIMIT 1', [$this->id]);
+        if(!empty($res)) return $res[0];
     }
 
     public function stocks(){

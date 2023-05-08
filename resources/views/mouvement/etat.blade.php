@@ -3,6 +3,16 @@
     <h2>Etat de stock {{ $produit->nom }}</h2>
     <table border="1" width="400">
         <tr>
+            <th>Total entree</th>
+            <th>Total sortie</th>
+        </tr>
+        <tr>
+            <td>{{ $resume->totalentree }}</td>
+            <td>{{ $resume->totalsortie }}</td>
+        </tr>
+    </table>
+    <table border="1" width="400">
+        <tr>
             <th>Valeur en stock</th>
             <th>Quantite en stock</th>
         </tr>
