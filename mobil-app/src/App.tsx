@@ -43,9 +43,9 @@ const App: React.FC = () => {
 		localStorage.removeItem("admin");
 	}
 
-	// useEffect(()=>{
-	// 	new Database().initDB();
-	// },[]);
+	useEffect(()=>{
+		new Database().initDB();
+	},[]);
 
   	return (
 		<IonApp>
