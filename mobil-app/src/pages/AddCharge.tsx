@@ -23,10 +23,6 @@ export default function AddCharge() {
             montant : montant,
             typeCharge : charge
         }
-
-        // new Charge(obj).save().then(()=>{
-        //     new Charge({}).findAll()
-        // });
     }
 
     useEffect(()=>{

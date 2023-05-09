@@ -32,6 +32,9 @@ import { Database } from './services/Database';
 import { useEffect } from 'react';
 import Insert from './pages/Insert';
 import Sync from './pages/Sync';
+import AddIp from './pages/AddIp';
+import Budget from './pages/Budget';
+import ListeDesCollect from './pages/ListeDesCollect';
 
 setupIonicReact();
 
@@ -59,6 +62,15 @@ const App: React.FC = () => {
 						<Route exact path="/add-charge">
 							<AddCharge />
 						</Route>
+
+						<Route exact path="/list-charge">
+							<Budget />
+						</Route>
+
+						<Route exact path="/list-collect">
+							<ListeDesCollect />
+						</Route>
+
 						<Route exact path="/login">
 							<Login />
 						</Route>
@@ -68,6 +80,10 @@ const App: React.FC = () => {
 
 						<Route exact path="/sync">
 							<Sync />
+						</Route>
+
+						<Route exact path="/config">
+							<AddIp />
 						</Route>
 						
 						<Route exact path="/">

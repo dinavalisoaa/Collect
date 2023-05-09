@@ -38,12 +38,16 @@ export class Charge {
             location: 'default' 
         })
 
+        const charges = [];
         try {
             let charge = await db.executeSql("SELECT * FROM charge",[]);
-
-            console.log(JSON.stringify(charge));
+            for (let index = 0; index < charge.rows.length; index++) {
+                charges.push(charge.rows.item(index));
+            }
         } catch (error) {
             alert(JSON.stringify(error));
         }
+
+        return charges;
     }
 }
